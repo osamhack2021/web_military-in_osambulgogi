@@ -2,18 +2,28 @@
 // https://github.com/microsoft/vscode-dev-containers/tree/v0.192.0/containers/javascript-node
 {
     "name": "Node.js",
-    "build": {
-        "dockerfile": "Dockerfile",
-        // Update 'VARIANT' to pick a Node version: 12, 14, 16
-        "args": { "VARIANT": "16" }
-    },
+    "dockerComposeFile": "docker-compose.yml",
+    "service": "app",
+    "workspaceFolder": "/workspace",
 
     // Set *default* container specific settings.json values on container create.
     "settings": {
         "eslint.alwaysShowStatus": true,
         "git.autofetch": true,
         "material-icon-theme.activeIconPack": "vue_vuex",
-        "workbench.iconTheme": "material-icon-theme"
+        "workbench.iconTheme": "material-icon-theme",
+        "sqltools.connections": [
+            {
+                "name": "Container database",
+                "driver": "PostgreSQL",
+                "previewLimit": 50,
+                "server": "localhost",
+                "port": 5432,
+                "database": "bulgogi",
+                "username": "bulgogi",
+                "password": "bulgogi"
+            }
+        ]
     },
 
     // Add the IDs of extensions you want installed when the container is created.
@@ -29,15 +39,21 @@
         "wayou.vscode-todo-highlight",
         "ms-azuretools.vscode-docker",
         "pkief.material-icon-theme",
-        "editorconfig.editorconfig"
+        "editorconfig.editorconfig",
+        "mtxr.sqltools",
+        "mtxr.sqltools-driver-pg"
     ],
 
     // Use 'forwardPorts' to make a list of ports inside the container available locally.
-    // "forwardPorts": [],
+    "forwardPorts": [3000, 5432],
 
     // Use 'postCreateCommand' to run commands after the container is created.
     "postCreateCommand": "cd frontend && yarn install && cd ../backend && yarn install",
 
     // Comment out connect as root instead. More info: https://aka.ms/vscode-remote/containers/non-root.
-    "remoteUser": "node"
+    "remoteUser": "node",
+
+    "remoteEnv": {
+        "DATABASE_URL": "postgres://bulgogi:bulgogi@localhost:5432/bulgogi"
+    }
 }
