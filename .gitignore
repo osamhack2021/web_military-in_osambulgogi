@@ -92,3 +92,6 @@ sw.*
 # Prisma
 *.env*
 dev.db
+
+# Docker volume mount
+/data
