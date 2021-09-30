@@ -1,4 +1,4 @@
-[*.{js,ts,vue,json,yml}]
+[*.{js,ts,vue,json,yml,conf}]
 indent_style = space
 indent_size = 2
 end_of_line = lf

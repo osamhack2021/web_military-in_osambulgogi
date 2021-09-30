@@ -42,7 +42,8 @@
         "editorconfig.editorconfig",
         "mtxr.sqltools",
         "mtxr.sqltools-driver-pg",
-        "rangav.vscode-thunder-client"
+        "rangav.vscode-thunder-client",
+        "shanoor.vscode-nginx"
     ],
 
     // Use 'forwardPorts' to make a list of ports inside the container available locally.
