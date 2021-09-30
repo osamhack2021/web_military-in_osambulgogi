@@ -1,0 +1,12 @@
+# Ignore everything
+**
+
+# Allow source files
+!/backend
+!/frontend
+!/ecosystem.config.js
+!/entrypoint.sh
+!/nginx.conf
+
+# Ignore Node packages
+**/node_modules
