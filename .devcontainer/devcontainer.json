@@ -41,7 +41,8 @@
         "pkief.material-icon-theme",
         "editorconfig.editorconfig",
         "mtxr.sqltools",
-        "mtxr.sqltools-driver-pg"
+        "mtxr.sqltools-driver-pg",
+        "rangav.vscode-thunder-client"
     ],
 
     // Use 'forwardPorts' to make a list of ports inside the container available locally.
