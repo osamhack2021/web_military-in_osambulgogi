@@ -1,20 +1,11 @@
 #!/bin/sh
 
-APP=/app
-DATA=/data
-
-mkdir -p $DATA/log
+mkdir -p /data/log
 
 # TODO: ssl setup
 
-# prepare backend
-yarn --cwd $APP/backend install
 # TODO: migrate db with prisma-migrate
 
-# prepare frontend
-yarn --cwd $APP/frontend install
-yarn --cwd $APP/frontend build
-yarn --cwd $APP/frontend start
+nginx -c /app/nginx.conf
 
-yarn global add pm2
-pm2 start $APP/ecosystem.config.js
+pm2-runtime start /app/ecosystem.config.js --env production
