@@ -12,10 +12,11 @@ model User {
   group_id   Int
   username   String    @unique
   password   String
-  nickname   String
+  nickname   String    @unique
   class      String?
   phone      String?
   email      String?
+  token      String?   @unique
   admin_type AdminType
 }
 
