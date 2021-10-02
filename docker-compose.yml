@@ -9,6 +9,7 @@ services:
     volumes:
       - ./data/app:/data
     environment:
+      - JWT_SECRET=CHANGE_ME
       - POSTGRES_DB=bulgogi
       - POSTGRES_USER=bulgogi
       - POSTGRES_PASSWORD=bulgogi
