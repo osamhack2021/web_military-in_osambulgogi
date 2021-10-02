@@ -53,7 +53,6 @@ async function main() {
   ]
 
   console.log('Start seeding ...')
-
   for (const u of userData) {
     const user = await prisma.user.create({
       data: u
@@ -63,7 +62,6 @@ async function main() {
 
   for (const g of groupData) {
     const group = await prisma.group.create({
-      data: g
     })
     console.log(`Created group with id: ${group.id}`)
   }
@@ -84,8 +82,6 @@ async function main() {
 
   console.log('Seeding finished.')
 }
-
-main()
   .catch((e) => {
     console.error(e)
     process.exit(1)
