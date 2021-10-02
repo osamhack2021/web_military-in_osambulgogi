@@ -5,5 +5,7 @@
     "strict": true,
     "lib": ["esnext"],
     "esModuleInterop": true
-  }
+  },
+  "include": ["app.ts", "prisma/**/*", "routes/**/*"],
+  "exclude": ["node_modules"]
 }
