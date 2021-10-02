@@ -5,5 +5,8 @@
     },
     "eslint.validate": ["vue", "javascript", "html"],
     "eslint.workingDirectories": ["backend", "frontend"],
-    "editor.defaultFormatter": "esbenp.prettier-vscode"
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "[prisma]": {
+        "editor.defaultFormatter": "Prisma.prisma"
+    }
 }
