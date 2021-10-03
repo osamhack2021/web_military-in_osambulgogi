@@ -1,4 +1,7 @@
 module.exports = {
+  purge: [
+    // TODO: production 빌드 때 제외할 파일 지정하기
+  ],
   theme: {
     fontFamily: {
       sans: [
