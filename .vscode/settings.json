@@ -1,12 +1,10 @@
 {
     "editor.formatOnSave": true,
-    "editor.codeActionsOnSave": {
-        "source.fixAll.eslint": true
-    },
     "eslint.validate": ["vue", "javascript", "html"],
     "eslint.workingDirectories": ["backend", "frontend"],
     "editor.defaultFormatter": "esbenp.prettier-vscode",
     "[prisma]": {
         "editor.defaultFormatter": "Prisma.prisma"
-    }
+    },
+    "files.autoSave": "off"
 }
