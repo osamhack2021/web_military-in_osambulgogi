@@ -7,28 +7,14 @@
     <input
       v-model="username"
       type="text"
-      class="
-        w-80
-        h-8
-        bg-gray-200
-        rounded-md
-        px-3
-        focus:ring-2 focus:ring-red-500
-      "
+      class="w-80 h-8 bg-gray-200 rounded-md px-3"
       placeholder="아이디"
       required
     />
     <input
       v-model="password"
       type="password"
-      class="
-        w-80
-        h-8
-        bg-gray-200
-        rounded-md
-        px-3
-        focus:ring-2 focus:ring-red-500
-      "
+      class="w-80 h-8 bg-gray-200 rounded-md px-3"
       placeholder="비밀번호"
       required
     />
