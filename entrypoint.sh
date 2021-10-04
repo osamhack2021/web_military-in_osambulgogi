@@ -4,7 +4,9 @@ mkdir -p /data/log
 
 # TODO: ssl setup
 
-# TODO: migrate db with prisma-migrate
+cd /app/backend
+yarn prisma migrate deploy
+yarn prisma db seed
 
 nginx -c /app/nginx.conf
 
