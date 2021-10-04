@@ -21,7 +21,9 @@
       <NuxtLink to="/about">이용약관</NuxtLink>
       <NuxtLink to="/help" class="ml-10">개인정보처리방침</NuxtLink>
       <!-- TODO: 드롭다운으로 바꾸기 -->
-      <NuxtLink to="/help" class="ml-10">Github</NuxtLink>
+      <NuxtLink to="/help" class="ml-10">
+        <fa :icon="['fab', 'github']" class="mr-1" />Github
+      </NuxtLink>
     </div>
   </div>
 </template>
