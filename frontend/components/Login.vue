@@ -64,7 +64,7 @@ export default {
       }
     }
   },
-  method: {
+  methods: {
     async login() {
       const res = await this.$axios({
         method: 'POST',
