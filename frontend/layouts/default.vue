@@ -1,7 +1,7 @@
 <template>
-  <div class="w-full">
+  <div class="w-full min-h-screen flex flex-col">
     <Header />
     <Nuxt />
-    <Footer />
+    <Footer class="mt-auto" />
   </div>
 </template>
