@@ -2,7 +2,7 @@ FROM node:16-alpine3.14
 
 COPY . /app
 
-RUN apk add --no-cache nginx \
+RUN apk add --no-cache nginx openssl \
     && yarn --cwd /app/backend install \
     && yarn --cwd /app/frontend install \
     && yarn --cwd /app/frontend build \
