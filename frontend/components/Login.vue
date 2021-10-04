@@ -5,7 +5,7 @@
       <span class="text-2xl text-gray-600 font-bold">군in 시작하기</span>
     </div>
     <input
-      v-model="form.username"
+      v-model="username"
       type="text"
       class="
         w-80
@@ -19,7 +19,7 @@
       required
     />
     <input
-      v-model="form.password"
+      v-model="password"
       type="password"
       class="
         w-80
@@ -46,6 +46,7 @@
     >
       로그인
     </button>
+    <notifications />
   </div>
 </template>
 
@@ -58,10 +59,8 @@ export default {
   },
   data() {
     return {
-      form: {
-        username: '',
-        password: ''
-      }
+      username: '',
+      password: ''
     }
   },
   methods: {
@@ -69,10 +68,12 @@ export default {
       const res = await this.$axios({
         method: 'POST',
         url: '/user/login',
-        data: this.form
+        data: { username, password }
       })
 
-      res.status === 200 ? alert('Login succeed.') : alert(res.data)
+      res.status === 200
+        ? this.$notify('Login succeed.')
+        : this.$notify(res.data)
     }
   }
 }
