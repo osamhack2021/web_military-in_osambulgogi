@@ -2,8 +2,8 @@
   <div class="px-6 py-4 w-full flex justify-between items-center bg-white">
     <div class="ml-20 flex">
       <div class="flex items-center">
-        <img src="../img/logo.svg" alt="logo" class="w-10 h-10 inline-block" />
-        <span class="ml-3 text-gray-800 text-2xl font-bold">군in</span>
+        <Logo width="40" height="40" class="inline-block" />
+        <span class="ml-3 text-gray-800 text-3xl font-bold">군in</span>
       </div>
       <div class="ml-12 flex items-center">
         <NuxtLink to="/about" class="">서비스 소개</NuxtLink>
