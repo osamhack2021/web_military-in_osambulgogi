@@ -1,8 +1,9 @@
 #!/bin/sh
 
-mkdir -p /data/log
+mkdir -p /data/log /data/ssl
 
-# TODO: ssl setup
+openssl req -new -newkey rsa:2048 -nodes -keyout /data/ssl/server.key -out /data/ssl/server.crt \
+ -subj /C=KR/ST=Seoul/L=Seoul/O=OSAMHACK2021/OU=OSAMBULGOGI/CN=military-in -days 1000
 
 cd /app/backend
 yarn prisma migrate deploy
