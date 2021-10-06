@@ -51,18 +51,22 @@ export default {
   },
   methods: {
     async login() {
-      const res = await this.$axios({
-        method: 'POST',
-        url: '/user/login',
-        data: {
-          username: this.username,
-          password: this.password
-        }
-      })
+      try {
+        const res = await this.$axios({
+          method: 'POST',
+          url: '/user/login',
+          data: {
+            username: this.username,
+            password: this.password
+          }
+        })
 
-      res.status === 200
-        ? this.$notify('Login succeed.')
-        : this.$notify(res.data)
+        res.status === 200
+          ? this.$notify('Login succeed.')
+          : this.$notify(res.data)
+      } catch (e) {
+        this.$notify('Login failed.')
+      }
     }
   }
 }
