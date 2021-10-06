@@ -10,7 +10,7 @@ async function main() {
       group_id: 1,
       password: await bcrypt.hash('foofoofoo', 8),
       nickname: 'chulsoo',
-      admin_type: 'NONE'
+      user_type: 'NONE'
     }
   ]
 

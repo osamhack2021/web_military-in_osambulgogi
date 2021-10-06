@@ -17,10 +17,10 @@ model User {
   phone      String?
   email      String?
   token      String?   @unique
-  admin_type AdminType
+  user_type  UserType
 }
 
-enum AdminType {
+enum UserType {
   NONE
   ADMIN
   SUPER_ADMIN
