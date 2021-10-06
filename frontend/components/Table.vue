@@ -22,7 +22,7 @@
         </tbody>
       </table>
     </div>
-    <div
+    <!-- <div
       id="pagination"
       class="
         w-full
@@ -40,7 +40,7 @@
       <a><p class="leading-relaxed cursor-pointer mx-2">3</p></a>
       <a><p class="leading-relaxed cursor-pointer mx-2">4</p></a>
       <a><fa :icon="['fas', 'chevron-right']" class="mx-2" /></a>
-    </div>
+    </div> -->
   </div>
 </template>
 
