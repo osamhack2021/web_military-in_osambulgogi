@@ -2,21 +2,10 @@
   <div class="lg:w-3/4 m-auto">
     <div class="flex justify-between">
       <Dropdown :options="facilities" :on-select="onDropdownSelect" />
-      <button
-        class="
-          px-3.5
-          py-1.5
-          text-white text-lg
-          font-bold
-          bg-military
-          rounded-lg
-          filter
-          drop-shadow
-        "
-      >
+      <Button>
         <fa :icon="['fas', 'plus']" class="mr-1" />
         예약 추가
-      </button>
+      </Button>
     </div>
     <div class="mx-6 mt-14">
       <Table :columns="columns" :values="values" />
