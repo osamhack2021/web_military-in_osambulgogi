@@ -2,8 +2,10 @@
 
 mkdir -p /data/log /data/ssl
 
-openssl req -x509 -newkey rsa:2048 -nodes -keyout /data/ssl/server.key -out /data/ssl/server.crt \
- -subj /C=KR/ST=Seoul/L=Seoul/O=OSAMHACK2021/OU=OSAMBULGOGI/CN=military-in -days 1000
+if [ ! -f "/data/ssl/server.key" ]; then
+    openssl req -x509 -newkey rsa:2048 -nodes -keyout /data/ssl/server.key -out /data/ssl/server.crt \
+    -subj /C=KR/ST=Seoul/L=Seoul/O=OSAMHACK2021/OU=OSAMBULGOGI/CN=military-in -days 1000
+fi
 
 cd /app/backend
 yarn prisma migrate deploy
