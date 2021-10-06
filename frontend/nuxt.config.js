@@ -50,7 +50,7 @@ export default {
   axios: {
     baseURL:
       process.env.NODE_ENV === 'production'
-        ? 'http://localhost/api'
+        ? '/api'
         : 'http://localhost:4000/api'
   },
 
