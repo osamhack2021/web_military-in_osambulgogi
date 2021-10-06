@@ -11,12 +11,12 @@
         </thead>
         <tbody class="text-sm font-normal text-gray-700">
           <tr
-            v-for="row in data"
+            v-for="row in values"
             :key="row.id"
             class="hover:bg-gray-100 border-b border-gray-200 py-10"
           >
-            <td v-for="val in row" :key="val.id" class="px-4 py-4">
-              {{ val }}
+            <td v-for="col in row" :key="col.id" class="px-4 py-4">
+              {{ col }}
             </td>
           </tr>
         </tbody>
@@ -49,55 +49,12 @@ export default {
   props: {
     columns: {
       type: Array,
-      default: () => ['일자', '예약자', '좌석번호', '예약 시간', '비고']
+      default: () => []
     },
-    data: {
+    values: {
       type: Array,
-      default: () => [
-        [
-          '9/1 수',
-          '일병 서강민',
-          '14번',
-          '17:30 ~ 19:00',
-          '군 e-러닝 중간고사'
-        ],
-        [
-          '9/1 수',
-          '일병 서강민',
-          '14번',
-          '17:30 ~ 19:00',
-          '군 e-러닝 중간고사'
-        ],
-        [
-          '9/1 수',
-          '일병 서강민',
-          '14번',
-          '17:30 ~ 19:00',
-          '군 e-러닝 중간고사'
-        ],
-        ['9/1 수', '일병 서강민', '14번', '17:30 ~ 19:00', '군 e-러닝 중간고사']
-      ]
+      default: () => []
     }
   }
 }
 </script>
-
-<style scoped>
-thead tr th:first-child {
-  border-top-left-radius: 10px;
-  border-bottom-left-radius: 10px;
-}
-thead tr th:last-child {
-  border-top-right-radius: 10px;
-  border-bottom-right-radius: 10px;
-}
-
-tbody tr td:first-child {
-  border-top-left-radius: 5px;
-  border-bottom-left-radius: 0px;
-}
-tbody tr td:last-child {
-  border-top-right-radius: 5px;
-  border-bottom-right-radius: 0px;
-}
-</style>
