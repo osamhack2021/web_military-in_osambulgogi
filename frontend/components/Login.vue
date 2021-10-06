@@ -54,7 +54,10 @@ export default {
       const res = await this.$axios({
         method: 'POST',
         url: '/user/login',
-        data: { username, password }
+        data: {
+          username: this.username,
+          password: this.password
+        }
       })
 
       res.status === 200
