@@ -21,7 +21,7 @@ export const post = async (req: express.Request, res: express.Response) => {
     })
 
     if (!user || !(await bcrypt.compare(req.body.password, user.password))) {
-      throw new Error('Unable to login')
+      return res.status(401).send()
     }
 
     const token = jwt.sign(
@@ -45,6 +45,6 @@ export const post = async (req: express.Request, res: express.Response) => {
 
     res.status(200).send(userinfo)
   } catch (e) {
-    res.status(401).send((e as Error).message)
+    res.status(500).send()
   }
 }
