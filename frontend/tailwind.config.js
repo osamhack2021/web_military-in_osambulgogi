@@ -21,6 +21,20 @@ module.exports = {
     extend: {
       colors: {
         military: '#4E784D'
+      },
+      width: {
+        160: '40rem',
+        180: '45rem',
+        204: '51rem',
+        216: '54rem',
+        240: '60rem'
+      },
+      height: {
+        160: '40rem',
+        180: '45rem',
+        204: '51rem',
+        216: '54rem',
+        240: '60rem'
       }
     }
   },
