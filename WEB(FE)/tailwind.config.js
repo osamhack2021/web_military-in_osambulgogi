@@ -24,6 +24,20 @@ module.exports = {
         'about-gradient-from': '#3CA55C',
         'about-gradient-to': '#B5AC49',
         'about-description': '#678E73'
+      },
+      width: {
+        160: '40rem',
+        180: '45rem',
+        204: '51rem',
+        216: '54rem',
+        240: '60rem'
+      },
+      height: {
+        160: '40rem',
+        180: '45rem',
+        204: '51rem',
+        216: '54rem',
+        240: '60rem'
       }
     }
   },
