@@ -8,16 +8,145 @@ datasource db {
 }
 
 model User {
+  id          Int           @id @default(autoincrement())
+  group_id    Int?
+  group       Group?        @relation(fields: [group_id], references: [id])
+  username    String        @unique
+  password    String
+  nickname    String        @unique
+  class       String?
+  phone       String?
+  email       String?
+  token       String?       @unique
+  user_type   UserType
+  article     Article[]
+  comment     Comment[]
+  schedule    Schedule[]
+  duty        Duty[]
+  reservation Reservation[]
+  work        Work[]
+}
+
+model Group {
+  id       Int        @id @default(autoincrement())
+  name     String     @unique
+  user     User[]
+  board    Board[]
+  schedule Schedule[]
+  // duty     Duty[]
+  facility Facility[]
+  on_call  OnCall[]
+}
+
+model Board {
+  id            Int       @id @default(autoincrement())
+  group         Group?    @relation(fields: [group_id], references: [id])
+  group_id      Int?
+  name          String
+  is_annonymous Boolean
+  article       Article[]
+}
+
+model Article {
+  id          Int       @id @default(autoincrement())
+  board       Board     @relation(fields: [board_id], references: [id])
+  board_id    Int
+  writer      User      @relation(fields: [writer_id], references: [id])
+  writer_id   Int
+  is_notice   Boolean
+  title       String
+  content     String
+  create_time DateTime  @default(now())
+  upvote      Int       @default(0)
+  downvote    Int       @default(0)
+  comment     Comment[]
+}
+
+model Comment {
+  id             Int       @id @default(autoincrement())
+  article        Article   @relation(fields: [article_id], references: [id])
+  article_id     Int
+  writer         User      @relation(fields: [writer_id], references: [id])
+  writer_id      Int
+  parent_comment Comment?  @relation("CommentToComment", fields: [comment_id], references: [id])
+  content        String
+  create_time    DateTime  @default(now())
+  upvote         Int       @default(0)
+  downvote       Int       @default(0)
+  comment        Comment[] @relation("CommentToComment")
+  comment_id     Int?
+}
+
+model Schedule {
   id         Int       @id @default(autoincrement())
+  group      Group     @relation(fields: [group_id], references: [id])
   group_id   Int
-  username   String    @unique
-  password   String
-  nickname   String    @unique
-  class      String?
-  phone      String?
-  email      String?
-  token      String?   @unique
-  user_type  UserType
+  user       User?     @relation(fields: [user_id], references: [id])
+  user_id    Int?
+  title      String
+  start_time DateTime
+  end_time   DateTime?
+  place      String?
+  memo       String?
+}
+
+model OnCall {
+  id         Int     @id @default(autoincrement())
+  group      Group   @relation(fields: [group_id], references: [id])
+  group_id   Int
+  name       String
+  visibility Boolean
+  duty       Duty[]
+}
+
+model Duty {
+  id         Int      @id @default(autoincrement())
+  user       User     @relation(fields: [user_id], references: [id])
+  user_id    Int
+  on_call    OnCall   @relation(fields: [on_call_id], references: [id])
+  on_call_id Int
+  start_date DateTime @db.Date
+  end_date   DateTime @db.Date
+}
+
+model Work {
+  id         Int      @id @default(autoincrement())
+  user       User     @relation(fields: [user_id], references: [id])
+  user_id    Int
+  name       String
+  date       DateTime @db.Date
+  start_time DateTime
+  end_time   DateTime
+}
+
+model Facility {
+  id            Int            @id @default(autoincrement())
+  group         Group          @relation(fields: [group_id], references: [id])
+  group_id      Int
+  name          String
+  reservation   Reservation[]
+  facility_time FacilityTime[]
+}
+
+model FacilityTime {
+  id              Int      @id @default(autoincrement())
+  facility        Facility @relation(fields: [facility_id], references: [id])
+  facility_id     Int
+  is_weekend      Boolean
+  start_time      DateTime @db.Date
+  duration_minute Int
+}
+
+model Reservation {
+  id          Int      @id @default(autoincrement())
+  user        User     @relation(fields: [user_id], references: [id])
+  user_id     Int
+  facility    Facility @relation(fields: [facility_id], references: [id])
+  facility_id Int
+  seat_number Int?
+  note        String
+  start_time  DateTime
+  end_time    DateTime
 }
 
 enum UserType {
