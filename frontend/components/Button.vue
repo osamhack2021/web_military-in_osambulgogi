@@ -10,6 +10,7 @@
       filter
     "
     :class="shadow && 'drop-shadow'"
+    @click="$emit('click')"
   >
     <slot />
   </button>
