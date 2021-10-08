@@ -8,9 +8,20 @@
       bg-military
       rounded-lg
       filter
-      drop-shadow
     "
+    :class="shadow && 'drop-shadow'"
   >
     <slot />
   </button>
 </template>
+
+<script>
+export default {
+  props: {
+    shadow: {
+      type: Boolean,
+      default: false
+    }
+  }
+}
+</script>

@@ -2,7 +2,7 @@
   <div class="lg:w-3/4 m-auto">
     <div class="flex justify-between">
       <Dropdown :options="facilities" :on-select="onDropdownSelect" />
-      <Button>
+      <Button shadow>
         <fa :icon="['fas', 'plus']" class="mr-1" />
         예약 추가
       </Button>
