@@ -7,7 +7,6 @@ async function main() {
   const userData: Prisma.UserCreateInput[] = [
     {
       username: 'foo',
-      group_id: 1,
       password: await bcrypt.hash('foofoofoo', 8),
       nickname: 'chulsoo',
       user_type: 'NONE'
