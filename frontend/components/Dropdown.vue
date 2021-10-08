@@ -24,7 +24,7 @@
             (index == 0 && 'rounded-t-lg') ||
             (index == options.length - 1 && 'rounded-b-lg')
           "
-          @click="onOptionClick(option)"
+          @click="onOptionClick(index)"
         >
           {{ option }}
         </li>
@@ -39,6 +39,10 @@ export default {
     options: {
       type: Array,
       default: () => ['No options given']
+    },
+    values: {
+      type: Array,
+      default: () => ['No values given']
     },
     onSelect: {
       type: Function,
@@ -55,9 +59,9 @@ export default {
     onDropdownToggle() {
       this.isCollapsed = !this.isCollapsed
     },
-    onOptionClick(clickedOption) {
-      this.selectedOption = clickedOption
-      this.onSelect(this.selectedOption)
+    onOptionClick(index) {
+      this.selectedOption = this.options[index]
+      this.onSelect(this.options[index], this.values[index])
     }
   }
 }
