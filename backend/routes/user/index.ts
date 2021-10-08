@@ -9,5 +9,6 @@ const router = express.Router()
 router.post('/login', login.post)
 router.get('/logout', authMiddleware, logout.get)
 router.get('/profile', authMiddleware, profile.get)
+router.put('/profile', authMiddleware, profile.put)
 
 export default router
