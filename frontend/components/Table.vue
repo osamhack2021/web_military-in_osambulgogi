@@ -3,19 +3,19 @@
     <div class="overflow-x-auto mt-6">
       <table class="table-auto border-collapse w-full">
         <thead>
-          <tr class="rounded-lg font-medium text-gray-600 text-left">
+          <tr class="rounded-lg font-medium text-gray-600 text-lg text-center">
             <th v-for="column in columns" :key="column.id" class="px-4 py-2">
               {{ column }}
             </th>
           </tr>
         </thead>
-        <tbody class="text-sm font-normal text-gray-700">
+        <tbody class="text-gray-700">
           <tr
             v-for="row in values"
             :key="row.id"
             class="hover:bg-gray-100 border-b border-gray-200 py-10"
           >
-            <td v-for="col in row" :key="col.id" class="px-4 py-4">
+            <td v-for="col in row" :key="col.id" class="px-4 py-4 text-center">
               {{ col }}
             </td>
           </tr>
