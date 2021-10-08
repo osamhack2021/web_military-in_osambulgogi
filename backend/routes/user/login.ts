@@ -27,9 +27,7 @@ export const post = async (req: express.Request, res: express.Response) => {
     const token = jwt.sign(
       { username: user.username },
       process.env.JWT_SECRET || 'secret_key',
-      {
-        expiresIn: '12h'
-      }
+      { expiresIn: '12h' }
     )
 
     const userinfo = await prisma.user.update({
@@ -45,6 +43,7 @@ export const post = async (req: express.Request, res: express.Response) => {
 
     res.status(200).send(userinfo)
   } catch (e) {
+    console.error(e)
     res.status(500).send()
   }
 }
