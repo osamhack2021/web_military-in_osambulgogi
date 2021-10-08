@@ -2,10 +2,11 @@
   <div class="lg:w-3/4 m-auto">
     <div class="flex justify-between">
       <Dropdown :options="facilities" :on-select="onDropdownSelect" />
-      <Button shadow>
+      <Button shadow @click="showModal = true">
         <fa :icon="['fas', 'plus']" class="mr-1" />
         예약 추가
       </Button>
+      <ReservationModal v-if="showModal" @close="showModal = false" />
     </div>
     <div class="mx-6 mt-14">
       <Table :columns="columns" :values="values" />
@@ -20,7 +21,8 @@ export default {
       facilities: [],
       selectedFacility: '',
       columns: [],
-      values: []
+      values: [],
+      showModal: false
     }
   },
   async fetch() {
