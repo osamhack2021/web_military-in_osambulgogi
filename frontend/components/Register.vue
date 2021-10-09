@@ -113,7 +113,7 @@
           font-bold
           hover:opacity-80
         "
-        @click="currentStep != 3 ? currentStep++ : register"
+        @click="currentStep != 3 ? currentStep++ : register()"
       >
         {{ currentStep != 3 ? '다음' : '완료' }}
       </button>
@@ -125,6 +125,7 @@
         이전 단계로 돌아가기
       </a>
     </div>
+    <RegisterModal v-if="showModal" @close="/* 메인 페이지로 리디렉션 */" />
   </div>
 </template>
 
@@ -154,24 +155,30 @@ export default {
         '육군 지휘통신사령부'
       ],
       groupValues: [0, 1, 2],
-      groupQuery: ''
+      groupQuery: '',
+
+      showModal: false
     }
   },
-  method: {
+  methods: {
     async register() {
+      await new Promise((resolve) => resolve())
+      this.showModal = true
+
+      /*
       const res = await this.$axios({
         method: 'POST',
         url: '/user/register',
         data: this.form
       })
 
-      if(res.status === 200) {
+      if (res.status === 200) {
         alert('Register succeeded.')
-        // 메인 페이지로 리디렉션
-      }
-      else {
+        this.showModal = true
+      } else {
         alert(res.data)
       }
+      */
     }
   }
 }
