@@ -1,5 +1,5 @@
 import express from 'express'
-import { PrismaClient } from '.prisma/client'
+import { PrismaClient } from '@prisma/client'
 import { RequestWithUser } from '../../interfaces/request'
 import { ProfileKey } from '../../interfaces/profile'
 
