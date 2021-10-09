@@ -2,9 +2,9 @@ import * as login from './login'
 import * as logout from './logout'
 import * as profile from './profile'
 import { authMiddleware } from '../../middleware/auth'
-import express from 'express'
+import { Router } from 'express'
 
-const router = express.Router()
+const router = Router()
 
 router.post('/login', login.post)
 router.get('/logout', authMiddleware, logout.get)
