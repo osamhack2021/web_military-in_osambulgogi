@@ -19,7 +19,7 @@
       <RadioGroup
         :options="userTypeOptions"
         :values="userTypeValues"
-        @select="(option, value) => (form.userType = value)"
+        :on-select="(option, value) => (form.userType = value)"
       />
     </div>
 
@@ -50,7 +50,7 @@
         :options="groupOptions"
         :values="groupValues"
         :filter="groupQuery"
-        @select="(option, value) => (form.group = value)"
+        :on-select="(option, value) => (form.group = value)"
       />
     </div>
 
@@ -107,12 +107,13 @@
           w-full
           h-10
           mt-4
-          bg-military
           text-white
           rounded-md
           font-bold
           hover:opacity-80
         "
+        :disabled="!isFormComplete"
+        :class="isFormComplete ? 'bg-military' : 'bg-gray-400'"
         @click="currentStep != 3 ? currentStep++ : register()"
       >
         {{ currentStep != 3 ? '다음' : '완료' }}
@@ -135,8 +136,8 @@ export default {
     return {
       currentStep: 1,
       form: {
-        userType: 0,
-        group: 0,
+        userType: -1,
+        group: -1,
         id: '',
         name: '',
         birth: '',
@@ -158,6 +159,25 @@ export default {
       groupQuery: '',
 
       showModal: false
+    }
+  },
+  computed: {
+    isFormComplete() {
+      if (this.currentStep === 1) {
+        return this.form.userType !== -1
+      } else if (this.currentStep === 2) {
+        return this.form.group !== -1
+      } else {
+        return (
+          this.form.id &&
+          this.form.name &&
+          this.form.birth &&
+          this.form.phone &&
+          this.form.class &&
+          this.form.nickname &&
+          this.form.email
+        )
+      }
     }
   },
   methods: {
