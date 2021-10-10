@@ -1,17 +1,10 @@
 <template>
   <div class="" @click="onDropdownToggle">
     <div
-      class="
-        absolute
-        text-gray-600 text-xl
-        font-bold
-        bg-white
-        rounded-lg
-        filter
-      "
+      class="absolute text-gray-600 text-xl bg-white rounded-lg filter"
       :class="isCollapsed ? 'drop-shadow-lg' : 'drop-shadow'"
     >
-      <div v-if="!isCollapsed" class="px-3.5 py-1.5">
+      <div v-if="!isCollapsed" class="px-3.5 py-1.5 font-bold">
         {{ selectedOption }}
         <fa :icon="['fas', 'chevron-down']" class="ml-2" />
       </div>
@@ -20,10 +13,11 @@
           v-for="(option, index) in options"
           :key="option.id"
           class="pr-10 hover:bg-gray-100 px-3.5 py-1.5"
-          :class="
-            (index == 0 && 'rounded-t-lg') ||
-            (index == options.length - 1 && 'rounded-b-lg')
-          "
+          :class="[
+            option == selectedOption ? 'font-bold' : 'font-medium',
+            index == 0 && 'rounded-t-lg',
+            index == options.length - 1 && 'rounded-b-lg'
+          ]"
           @click="onOptionClick(index)"
         >
           {{ option }}
