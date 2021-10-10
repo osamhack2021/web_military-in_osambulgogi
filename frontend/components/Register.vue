@@ -14,7 +14,7 @@
   >
     <span class="text-2xl mb-10">회원가입</span>
 
-    <div v-if="currentStep == 1" class="w-full">
+    <div v-show="currentStep == 1" class="w-full">
       <p class="text-lg mb-6">회원 유형을 선택해주세요.</p>
       <RadioGroup
         :options="userTypeOptions"
@@ -23,7 +23,7 @@
       />
     </div>
 
-    <div v-else-if="currentStep == 2" class="w-full">
+    <div v-show="currentStep == 2" class="w-full">
       <p class="text-lg mb-6">소속 부대를 선택해주세요.</p>
       <div class="relative">
         <fa
@@ -54,7 +54,7 @@
       />
     </div>
 
-    <div v-if="currentStep == 3">
+    <div v-show="currentStep == 3">
       <p class="text-lg mb-6">회원 정보를 입력해주세요.</p>
       <div class="text-left">
         <p class="mt-2 ml-2.5 mb-0">군번</p>
