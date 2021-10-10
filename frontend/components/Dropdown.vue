@@ -1,5 +1,5 @@
 <template>
-  <div class="" @click="onDropdownToggle">
+  <div tabindex="0" @focusout="isCollapsed = false" @click="onDropdownToggle">
     <div
       class="absolute text-gray-600 text-xl bg-white rounded-lg filter"
       :class="isCollapsed ? 'drop-shadow-lg' : 'drop-shadow'"
