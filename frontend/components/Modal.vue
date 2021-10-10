@@ -11,9 +11,13 @@
       flex
       align-middle
     "
+    @click="$emit('close')"
   >
-    <div class="sm:w-5/6 lg:w-1/4 m-auto p-8 rounded-2xl bg-white">
-      <slot />
+    <div
+      class="sm:w-5/6 lg:w-1/4 m-auto p-8 rounded-2xl bg-white"
+      @click.stop
+    >
+      <slot tabindex="0"/>
     </div>
   </div>
 </template>
