@@ -1,5 +1,5 @@
 import { RequestWithUser } from '../../../interfaces/request'
-import { PrismaClient } from '@prisma/client'
+import { PrismaClient, UserType } from '@prisma/client'
 import express from 'express'
 
 const prisma = new PrismaClient()
@@ -36,4 +36,78 @@ export const post = async (req: RequestWithUser, res: express.Response) => {
   })
 
   return res.status(200).send(comment)
+}
+
+export const patch = async (req: RequestWithUser, res: express.Response) => {
+  const id = Number(req.query.id)
+  const content = req.body.content
+
+  if (!id || !content) {
+    return res.status(400).send('Wrong parameter')
+  }
+
+  try {
+    const comment_info = await prisma.comment.findFirst({
+      where: {
+        id: id
+      },
+      select: {
+        writer_id: true
+      }
+    })
+
+    if (
+      req.user!.id !== comment_info?.writer_id &&
+      req.user!.user_type === UserType.NONE
+    ) {
+      return res.status(401).send('No access authority')
+    }
+
+    const comment = await prisma.comment.update({
+      where: {
+        id: id
+      },
+      data: {
+        content: content
+      }
+    })
+    res.status(200).send(comment)
+  } catch (e) {
+    res.status(500).send()
+  }
+}
+
+export const delete_ = async (req: RequestWithUser, res: express.Response) => {
+  const id = Number(req.query.id)
+
+  if (!id) {
+    return res.status(400).send('Wrong parameter')
+  }
+
+  try {
+    const comment_info = await prisma.comment.findFirst({
+      where: {
+        id: id
+      },
+      select: {
+        writer_id: true
+      }
+    })
+
+    if (
+      req.user!.id !== comment_info?.writer_id &&
+      req.user!.user_type === UserType.NONE
+    ) {
+      return res.status(401).send('No access authority')
+    }
+
+    const comment = await prisma.comment.delete({
+      where: {
+        id: id
+      }
+    })
+    res.status(200).send(comment)
+  } catch (e) {
+    res.status(500).send()
+  }
 }
