@@ -5,16 +5,16 @@
       :class="isCollapsed ? 'drop-shadow-lg' : 'drop-shadow'"
     >
       <div v-if="!isCollapsed" class="px-3.5 py-1.5 font-bold">
-        {{ selectedOption }}
+        {{ options[selectedIndex] }}
         <fa :icon="['fas', 'chevron-down']" class="ml-2" />
       </div>
       <ul v-else>
         <li
           v-for="(option, index) in options"
-          :key="option.id"
+          :key="index"
           class="pr-10 hover:bg-gray-100 px-3.5 py-1.5"
           :class="[
-            option == selectedOption ? 'font-bold' : 'font-medium',
+            index == selectedIndex ? 'font-bold' : 'font-medium',
             index == 0 && 'rounded-t-lg',
             index == options.length - 1 && 'rounded-b-lg'
           ]"
@@ -44,13 +44,13 @@ export default {
     },
     onSelect: {
       type: Function,
-      default: (selectedOption) => {}
+      default: (selectedOption, selectedValue) => {}
     }
   },
   data() {
     return {
       isCollapsed: false,
-      selectedOption: this.options[this.selected]
+      selectedIndex: this.selected
     }
   },
   methods: {
@@ -58,7 +58,7 @@ export default {
       this.isCollapsed = !this.isCollapsed
     },
     onOptionClick(index) {
-      this.selectedOption = this.options[index]
+      this.selectedIndex = index
       this.onSelect(this.options[index], this.values[index])
     }
   }
