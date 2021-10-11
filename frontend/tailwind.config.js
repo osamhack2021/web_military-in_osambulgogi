@@ -20,7 +20,8 @@ module.exports = {
     },
     extend: {
       colors: {
-        military: '#4E784D'
+        military: '#4E784D',
+        militaryDark: '#1E481D'
       },
       width: {
         160: '40rem',
