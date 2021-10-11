@@ -7,6 +7,9 @@ import { Router } from 'express'
 const router = Router()
 
 router.get('/', authMiddleware, article.get)
+router.post('/', authMiddleware, article.post)
+router.patch('/', authMiddleware, article.patch)
+router.delete('/', authMiddleware, article.delete_)
 router.put('/vote', authMiddleware, vote.put)
 router.use('/comment', comment)
 
