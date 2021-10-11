@@ -1,5 +1,6 @@
 import { authMiddleware } from '../../middleware/auth'
 import { RequestWithUser } from '../../interfaces/request'
+import { VoteCountedArticle } from '../../interfaces/article'
 import { Router, Response } from 'express'
 import { PrismaClient } from '@prisma/client'
 
@@ -26,7 +27,7 @@ router.get('/', authMiddleware, async (req: RequestWithUser, res: Response) => {
     return res.status(200).send({ articles: articles, cursor: newCursor })
   }
 
-  const articles = await prisma.article.findMany({
+  const articles: VoteCountedArticle[] = await prisma.article.findMany({
     take: 30,
     skip: 1,
     cursor: {
@@ -34,7 +35,27 @@ router.get('/', authMiddleware, async (req: RequestWithUser, res: Response) => {
     },
     orderBy: {
       id: 'desc'
+    },
+    include: {
+      vote: {
+        select: {
+          is_upvote: true,
+          user_id: true
+        }
+      }
     }
+  })
+
+  articles.forEach((article) => {
+    article.upvote = article.vote!.filter((vote) => {
+      vote.is_upvote
+    }).length
+    article.downvote = article.vote!.length - article.upvote
+    const my_vote = article.vote!.filter(
+      (vote) => vote.user_id === req.user!.id
+    )[0]
+    article.my_vote = my_vote ? (my_vote.is_upvote ? 1 : -1) : 0
+    delete article.vote
   })
 
   const newCursor = articles[articles.length - 1].id
