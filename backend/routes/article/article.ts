@@ -1,4 +1,5 @@
 import { RequestWithUser } from '../../interfaces/request'
+import { VoteCountedArticle } from '../../interfaces/article'
 import { PrismaClient } from '.prisma/client'
 import express from 'express'
 
@@ -22,34 +23,45 @@ export const get = async (req: RequestWithUser, res: express.Response) => {
       }
     })
 
-    const article = board!.is_annonymous
-      ? await prisma.article.findFirst({
-          where: {
-            id: id,
-            board_id: board_id
-          },
-          include: {
-            comment: true
+    const article: VoteCountedArticle | null = await prisma.article.findFirst({
+      where: {
+        id: id,
+        board_id: board_id
+      },
+      include: {
+        comment: true,
+        vote: {
+          select: {
+            is_upvote: true
           }
-        })
-      : await prisma.article.findFirst({
-          where: {
-            id: id,
-            board_id: board_id
-          },
-          include: {
-            writer: {
-              select: {
-                nickname: true
-              }
-            },
-            comment: true
-          }
-        })
+        }
+      }
+    })
 
     if (!article) {
       return res.status(404).send('Article does not exist.')
     }
+
+    article.upvote = article.vote!.filter((vote) => {
+      vote.is_upvote
+    }).length
+    article.downvote = article.vote!.length - article.upvote
+
+    const my_vote = await prisma.vote.findFirst({
+      where: {
+        article: {
+          id: id,
+          board_id: board_id
+        }
+      },
+      select: {
+        is_upvote: true
+      }
+    })
+
+    article.my_vote = my_vote ? (my_vote.is_upvote ? 1 : -1) : 0
+
+    delete article.vote
 
     res.status(200).send(article)
   } catch (e) {
