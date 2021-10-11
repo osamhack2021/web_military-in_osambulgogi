@@ -25,6 +25,7 @@ model User {
   duty        Duty[]
   reservation Reservation[]
   work        Work[]
+  Vote        Vote[]
 }
 
 model Group {
@@ -47,6 +48,17 @@ model Board {
   article       Article[]
 }
 
+model Vote {
+  id         Int      @id @default(autoincrement())
+  user       User     @relation(fields: [user_id], references: [id])
+  user_id    Int
+  article    Article  @relation(fields: [article_id], references: [id])
+  article_id Int
+  comment    Comment? @relation(fields: [comment_id], references: [id])
+  comment_id Int?
+  is_upvote  Boolean
+}
+
 model Article {
   id          Int       @id @default(autoincrement())
   board       Board     @relation(fields: [board_id], references: [id])
@@ -57,9 +69,8 @@ model Article {
   title       String
   content     String
   create_time DateTime  @default(now())
-  upvote      Int       @default(0)
-  downvote    Int       @default(0)
   comment     Comment[]
+  vote        Vote[]
 }
 
 model Comment {
@@ -71,10 +82,9 @@ model Comment {
   parent_comment Comment?  @relation("CommentToComment", fields: [comment_id], references: [id])
   content        String
   create_time    DateTime  @default(now())
-  upvote         Int       @default(0)
-  downvote       Int       @default(0)
   comment        Comment[] @relation("CommentToComment")
   comment_id     Int?
+  vote           Vote[]
 }
 
 model Schedule {
