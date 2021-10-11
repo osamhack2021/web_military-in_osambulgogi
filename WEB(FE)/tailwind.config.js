@@ -23,7 +23,8 @@ module.exports = {
         military: '#4E784D',
         'about-gradient-from': '#3CA55C',
         'about-gradient-to': '#B5AC49',
-        'about-description': '#678E73'
+        'about-description': '#678E73',
+        militaryDark: '#1E481D'
       },
       width: {
         160: '40rem',
