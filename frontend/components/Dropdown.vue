@@ -38,6 +38,10 @@ export default {
       type: Array,
       default: () => ['No values given']
     },
+    selected: {
+      type: Number,
+      default: 0
+    },
     onSelect: {
       type: Function,
       default: (selectedOption) => {}
@@ -46,7 +50,7 @@ export default {
   data() {
     return {
       isCollapsed: false,
-      selectedOption: this.options[0]
+      selectedOption: this.options[this.selected]
     }
   },
   methods: {
