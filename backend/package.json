@@ -3,6 +3,8 @@
   "version": "1.0.0",
   "license": "MIT",
   "scripts": {
+    "build": "tsc",
+    "start": "node dist/app.js",
     "dev": "ts-node app.ts"
   },
   "dependencies": {
