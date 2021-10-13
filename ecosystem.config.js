@@ -4,7 +4,7 @@ module.exports = {
       name: 'backend',
       script: 'yarn',
       cwd: '/app/backend',
-      args: 'dev',
+      args: 'start',
       autorestart: true,
       watch: false,
       error_file: '/data/log/backend_err.log',
