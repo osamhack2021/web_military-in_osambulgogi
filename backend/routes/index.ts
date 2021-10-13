@@ -3,6 +3,7 @@ import user from './user'
 import board from './board'
 import article from './article'
 import schedule from './schedule'
+import duty from './duty'
 
 const routes = express.Router()
 
@@ -15,5 +16,6 @@ routes.use('/user', user)
 routes.use('/board', board)
 routes.use('/article', article)
 routes.use('/schedule', schedule)
+routes.use('/duty', duty)
 
 export default routes
