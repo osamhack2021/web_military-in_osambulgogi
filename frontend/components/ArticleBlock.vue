@@ -11,32 +11,30 @@
         <fa :icon="['fas', 'comment']" class="text-sm text-blue-400" />
         <span class="text-sm text-blue-400">{{ comments }}</span>
       </div>
-      <div class="flex-initial h-12 text-sm text-gray-300">
+      <div class="flex-none h-12 text-sm text-gray-300 white-space:pre-wrap">
         {{ content }}
       </div>
-      <span class="flex-none text-xs text-gray-400">{{
-        reportDate.getFullYear() +
-        '.' +
-        reportDate.getMonth() +
-        '.' +
-        reportDate.getDate() +
-        ' ' +
-        reportDate.getHours() +
-        ':' +
-        reportDate.getMinutes()
-      }}</span>
+      <span class="flex-none text-xs text-gray-400"
+        >{{ reportDate.getFullYear() }}.{{
+          ('00' + reportDate.getMonth()).slice(-2)
+        }}.{{ ('00' + reportDate.getDate()).slice(-2) }}
+        {{ week[reportDate.getDay()] }}
+        {{ ('00' + reportDate.getHours()).slice(-2) }}:{{
+          ('00' + reportDate.getMinutes()).slice(-2)
+        }}</span
+      >
     </div>
     <div class="flex flex-col items-center justify-center space-y-1">
       <fa
         :icon="['fas', 'caret-up']"
         class="text-xl text-gray-300"
-        @click="upvote()"
+        @click="upVote()"
       />
       <span class="text-base text-gray-500 font-bold">{{ vote }}</span>
       <fa
         :icon="['fas', 'caret-down']"
         class="text-xl text-gray-300"
-        @click="downvote()"
+        @click="downVote()"
       />
     </div>
   </Nuxtlink>
@@ -69,6 +67,7 @@ export default {
   },
   data() {
     return {
+      week: ['(일)', '(월)', '(화)', '(수)', '(목)', '(금)', '(토)'],
       title: '',
       comments: 0,
       content: '',
@@ -83,10 +82,10 @@ export default {
     // vote 갱신
   },
   methods: {
-    upvote() {
+    upVote() {
       this.vote++
     },
-    downvote() {
+    downVote() {
       this.vote--
     },
     async fetchArticle(boardId, articleId) {
@@ -100,5 +99,4 @@ export default {
     }
   }
 }
-// parent***은 테스트용 임시
 </script>
