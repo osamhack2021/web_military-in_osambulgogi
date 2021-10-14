@@ -2,8 +2,8 @@
   <div class="lg:w-3/4 m-auto">
     <div class="flex justify-between">
       <Dropdown
-        :options="facilities"
-        :values="facilities"
+        :options="facilities.map((x) => x.name)"
+        :values="facilities.map((x) => x.id)"
         :on-select="onDropdownSelect"
       />
       <Button shadow @click="showModal = true">
@@ -87,8 +87,8 @@ export default {
         }
       ]
     },
-    onDropdownSelect(selectedOption) {
-      this.fetchTable(selectedOption)
+    onDropdownSelect(option, value) {
+      this.fetchTable(value)
     }
   }
 }
