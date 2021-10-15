@@ -24,8 +24,8 @@ model User {
   schedule    Schedule[]
   duty        Duty[]
   reservation Reservation[]
-  work        Work[]
-  Vote        Vote[]
+  vote        Vote[]
+  worksheet   Worksheet[]
 }
 
 model Group {
@@ -34,9 +34,9 @@ model Group {
   user     User[]
   board    Board[]
   schedule Schedule[]
-  // duty     Duty[]
   facility Facility[]
   on_call  OnCall[]
+  work     Work[]
 }
 
 model Board {
@@ -120,31 +120,34 @@ model Duty {
 }
 
 model Work {
-  id         Int      @id @default(autoincrement())
-  user       User     @relation(fields: [user_id], references: [id])
-  user_id    Int
+  id         Int         @id @default(autoincrement())
+  group      Group       @relation(fields: [group_id], references: [id])
+  group_id   Int
   name       String
-  date       DateTime @db.Date
   start_time DateTime
   end_time   DateTime
+  Worksheet  Worksheet[]
+}
+
+model Worksheet {
+  id      Int      @id @default(autoincrement())
+  work    Work     @relation(fields: [work_id], references: [id])
+  work_id Int
+  user    User     @relation(fields: [user_id], references: [id])
+  user_id Int
+  date    DateTime @db.Date
 }
 
 model Facility {
-  id            Int            @id @default(autoincrement())
-  group         Group          @relation(fields: [group_id], references: [id])
-  group_id      Int
-  name          String
-  reservation   Reservation[]
-  facility_time FacilityTime[]
-}
-
-model FacilityTime {
-  id              Int      @id @default(autoincrement())
-  facility        Facility @relation(fields: [facility_id], references: [id])
-  facility_id     Int
-  is_weekend      Boolean
-  start_time      DateTime @db.Date
-  duration_minute Int
+  id                 Int           @id @default(autoincrement())
+  group              Group         @relation(fields: [group_id], references: [id])
+  group_id           Int
+  name               String
+  open_start         DateTime
+  open_end           DateTime
+  weekend_open_start DateTime
+  weekend_open_end   DateTime
+  reservation        Reservation[]
 }
 
 model Reservation {
