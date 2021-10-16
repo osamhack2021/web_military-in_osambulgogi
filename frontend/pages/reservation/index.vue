@@ -10,7 +10,7 @@
         <fa :icon="['fas', 'plus']" class="mr-1" />
         예약 추가
       </Button>
-      <ReservationModal v-if="showModal" @close="showModal = false" />
+      <ReservationModal v-if="showModal" @close="showModal = false" @submit="onModalSubmit"/>
     </div>
     <div class="mx-6 mt-14">
       <Table :columns="columns" :values="values" />
@@ -23,7 +23,7 @@ export default {
   data() {
     return {
       facilities: [],
-      selectedFacility: '',
+      selectedFacilityId: -1,
       columns: [],
       values: [],
       showModal: false
@@ -44,6 +44,7 @@ export default {
         { name: '사이버지식정보방2', id: 2 },
         { name: '사이버지식정보방3', id: 3 }
       ]
+      this.selectedFacilityId = this.facilities[0].id
       this.columns = ['일자', '예약자', '좌석번호', '예약 시간', '비고']
     },
     async fetchTable(facilityId) {
@@ -89,6 +90,12 @@ export default {
     },
     onDropdownSelect(option, value) {
       this.fetchTable(value)
+      this.selectedFacilityId = value
+    },
+    async onModalSubmit(form) {
+      // const result = await this.$axios.post(`/reservation/facility/${this.selectedFacilityId}`, {
+      //   data: form
+      // })
     }
   }
 }
