@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="flex justify-center items-center">
-      <div>
+      <div class="ml-14">
         <h2
           class="
             mb-20
@@ -21,7 +21,7 @@
           '군in'과 함께 선진병영에 한발짝 더 나아갑니다.
         </p>
       </div>
-      <div class="ml-24">
+      <div class="ml-14 lg:ml-24 mr-14">
         <img src="../img/about_pic.jpg" width="600">
       </div>
     </div>
