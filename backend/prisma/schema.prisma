@@ -143,6 +143,7 @@ model Facility {
   group              Group         @relation(fields: [group_id], references: [id])
   group_id           Int
   name               String
+  use_timetable      Boolean
   open_start         DateTime
   open_end           DateTime
   weekend_open_start DateTime
