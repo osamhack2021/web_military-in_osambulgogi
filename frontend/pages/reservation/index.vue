@@ -3,17 +3,22 @@
     <div class="flex justify-between">
       <Dropdown
         :options="facilities.map((x) => x.name)"
-        :values="facilities.map((x) => x.id)"
+        :values="facilities"
         :on-select="onDropdownSelect"
       />
       <Button shadow @click="showModal = true">
         <fa :icon="['fas', 'plus']" class="mr-1" />
         예약 추가
       </Button>
-      <ReservationModal v-if="showModal" @close="showModal = false" @submit="onModalSubmit"/>
+      <ReservationModal
+        v-if="showModal"
+        @close="showModal = false"
+        @submit="onModalSubmit"
+      />
     </div>
     <div class="mx-6 mt-14">
-      <Table :columns="columns" :values="values" />
+      <Timetable v-if="selectedFacility.use_timetable" :schedules="schedules" />
+      <Table v-else :columns="columns" :values="values" />
     </div>
   </div>
 </template>
@@ -23,7 +28,11 @@ export default {
   data() {
     return {
       facilities: [],
-      selectedFacilityId: -1,
+      selectedFacility: {
+        name: '',
+        id: -1,
+        use_timetable: false
+      },
       columns: [],
       values: [],
       showModal: false
@@ -40,60 +49,111 @@ export default {
       this.facilities = await new Promise((resolve) => resolve())
 
       this.facilities = [
-        { name: '사이버지식정보방1', id: 1 },
-        { name: '사이버지식정보방2', id: 2 },
-        { name: '사이버지식정보방3', id: 3 }
+        { name: '사이버지식정보방1', id: 1, use_timetable: false },
+        { name: '사이버지식정보방2', id: 2, use_timetable: false },
+        { name: '노래방', id: 3, use_timetable: true },
+        { name: '휴게실', id: 4, use_timetable: true }
       ]
-      this.selectedFacilityId = this.facilities[0].id
+      this.selectedFacility = this.facilities[0]
       this.columns = ['일자', '예약자', '좌석번호', '예약 시간', '비고']
     },
     async fetchTable(facilityId) {
       // this.values = await $axios.get(`/facility/${facilityId}`)
       // Response: date, (User)name, seat_number, start_time, end_time, note
-
       this.values = await new Promise((resolve) => resolve())
+      this.values = []
 
-      this.values = [
-        {
-          date: '2021-09-01',
-          name: '일병 서강민',
-          seat_number: '14번',
-          start_time: '17:30',
-          end_time: '19:00',
-          note: '군 e-러닝 중간고사'
-        },
-        {
-          date: '2021-09-01',
-          name: '일병 서강민',
-          seat_number: '14번',
-          start_time: '17:30',
-          end_time: '19:00',
-          note: '군 e-러닝 중간고사'
-        },
-        {
-          date: '2021-09-01',
-          name: '일병 서강민',
-          seat_number: '14번',
-          start_time: '17:30',
-          end_time: '19:00',
-          note: '군 e-러닝 중간고사'
-        },
-        {
-          date: '2021-09-01',
-          name: '일병 서강민',
-          seat_number: '14번',
-          start_time: '17:30',
-          end_time: '19:00',
-          note: '군 e-러닝 중간고사'
+      if (facilityId === 1) {
+        for (let i = 0; i < 7; i++) {
+          this.values.push({
+            date: '2021-09-01',
+            name: '일병 서강민',
+            seat_number: '14번',
+            start_time: '17:30',
+            end_time: '19:00',
+            note: '군 e-러닝 중간고사'
+          })
         }
-      ]
+      } else if (facilityId === 2) {
+        for (let i = 0; i < 20; i++) {
+          this.values.push({
+            date: '2021-09-01',
+            name: '일병 서강민',
+            seat_number: '14번',
+            start_time: '17:30',
+            end_time: '19:00',
+            note: '군 e-러닝 중간고사'
+          })
+        }
+      } else if (facilityId === 3) {
+        this.values = [
+          {
+            date: '2021-10-16',
+            name: '일병 서강민',
+            seat_number: '',
+            start_time: '15:00',
+            end_time: '16:30',
+            note: ''
+          },
+          {
+            date: '2021-10-17',
+            name: '상병 김주현',
+            seat_number: '',
+            start_time: '17:00',
+            end_time: '19:30',
+            note: ''
+          },
+          {
+            date: '2021-10-18',
+            name: '일병 최재민',
+            seat_number: '',
+            start_time: '17:00',
+            end_time: '19:00',
+            note: ''
+          },
+          {
+            date: '2021-10-18',
+            name: '일병 서강민',
+            seat_number: '',
+            start_time: '20:00',
+            end_time: '21:00',
+            note: ''
+          },
+          {
+            date: '2021-10-20',
+            name: '',
+            seat_number: '',
+            start_time: '13:00',
+            end_time: '24:00',
+            note: '장비 교체작업'
+          },
+          {
+            date: '2021-10-21',
+            name: '',
+            seat_number: '',
+            start_time: '6:00',
+            end_time: '16:00',
+            note: '장비 교체작업'
+          },
+          {
+            date: '2021-10-21',
+            name: '상병 김주현',
+            seat_number: '',
+            start_time: '18:00',
+            end_time: '22:00',
+            note: ''
+          }
+        ]
+      } else if (facilityId === 4) {
+        this.values = []
+      }
     },
     onDropdownSelect(option, value) {
-      this.fetchTable(value)
-      this.selectedFacilityId = value
+      this.selectedFacility = value
+      this.fetchTable(value.id)
     },
     async onModalSubmit(form) {
-      // const result = await this.$axios.post(`/reservation/facility/${this.selectedFacilityId}`, {
+      // const result = await this.$axios.post(`/reservation/facility/${this.selectedFacility.id}`, {
       //   data: form
       // })
     }
