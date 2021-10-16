@@ -5,13 +5,11 @@
     <input
       v-model="reservation.date"
       class="bg-gray-200 w-full px-3 py-1 my-2 rounded placeholder-gray-400"
-      placeholder="일자 입력"
     />
     <p>좌석 번호</p>
     <input
-      v-model="reservation.seat"
+      v-model="reservation.seat_number"
       class="bg-gray-200 w-full px-3 py-1 my-2 rounded placeholder-gray-400"
-      placeholder="일자 입력"
     />
     <p>예약 시간</p>
     <div class="flex items-center">
@@ -19,7 +17,6 @@
         <input
           v-model="reservation.startTime"
           class="bg-gray-200 w-full px-3 py-1 my-2 rounded placeholder-gray-400"
-          placeholder="일자 입력"
         />
       </div>
       <div>
@@ -29,11 +26,15 @@
         <input
           v-model="reservation.endTime"
           class="bg-gray-200 w-full px-3 py-1 my-2 rounded placeholder-gray-400"
-          placeholder="일자 입력"
         />
       </div>
     </div>
-    <Button class="w-full mt-4" @click="$emit('close')">확인</Button>
+    <p>비고</p>
+    <input
+      v-model="reservation.note"
+      class="bg-gray-200 w-full px-3 py-1 my-2 rounded placeholder-gray-400"
+    />
+    <Button class="w-full mt-4" @click="onConfirm">확인</Button>
   </Modal>
 </template>
 
@@ -43,10 +44,17 @@ export default {
     return {
       reservation: {
         date: '',
-        seat: '',
+        seat_number: '',
         startTime: '',
-        endTime: ''
+        endTime: '',
+        note: '',
       }
+    }
+  },
+  methods: {
+    onConfirm() {
+      this.$emit('submit', this.reservation)
+      this.$emit('close')
     }
   }
 }
