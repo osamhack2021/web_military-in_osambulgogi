@@ -20,7 +20,10 @@ module.exports = {
     },
     extend: {
       colors: {
-        military: '#4E784D'
+        military: '#4E784D',
+        'about-gradient-from': '#3CA55C',
+        'about-gradient-to': '#B5AC49',
+        'about-description': '#678E73'
       }
     }
   },
