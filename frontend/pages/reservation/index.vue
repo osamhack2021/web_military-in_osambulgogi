@@ -17,8 +17,13 @@
       />
     </div>
     <div class="mx-6 mt-14">
-      <Timetable v-if="selectedFacility.use_timetable" :schedules="schedules" />
-      <Table v-else :columns="columns" :values="values" />
+      <Timetable
+        v-if="selectedFacility.use_timetable"
+        :start="selectedFacility.weekend_open_start"
+        :end="selectedFacility.weekend_open_end"
+        :schedules="reservations"
+      />
+      <Table v-else :columns="columns" :values="reservations" />
     </div>
   </div>
 </template>
@@ -34,7 +39,7 @@ export default {
         use_timetable: false
       },
       columns: [],
-      values: [],
+      reservations: [],
       showModal: false
     }
   },
@@ -49,23 +54,62 @@ export default {
       this.facilities = await new Promise((resolve) => resolve())
 
       this.facilities = [
-        { name: '사이버지식정보방1', id: 1, use_timetable: false },
-        { name: '사이버지식정보방2', id: 2, use_timetable: false },
-        { name: '노래방', id: 3, use_timetable: true },
-        { name: '휴게실', id: 4, use_timetable: true }
+        {
+          name: '사이버지식정보방1',
+          id: 1,
+          use_timetable: false,
+          open_start: '09:00',
+          open_end: '20:30',
+          weekend_open_start: '09:00',
+          weekend_open_end: '20:30'
+        },
+        {
+          name: '사이버지식정보방2',
+          id: 2,
+          use_timetable: false,
+          open_start: '09:00',
+          open_end: '20:30',
+          weekend_open_start: '09:00',
+          weekend_open_end: '20:30'
+        },
+        {
+          name: '노래방',
+          id: 3,
+          use_timetable: true,
+          open_start: '09:00',
+          open_end: '20:30',
+          weekend_open_start: '09:00',
+          weekend_open_end: '20:30'
+        },
+        {
+          name: '휴게실',
+          id: 4,
+          use_timetable: true,
+          open_start: '07:00',
+          open_end: '23:00',
+          weekend_open_start: '07:00',
+          weekend_open_end: '23:00'
+        }
       ]
+      this.facilities.map((x) => {
+        x.open_start = this.parseTime(x.open_start)
+        x.open_end = this.parseTime(x.open_end)
+        x.weekend_open_start = this.parseTime(x.weekend_open_start)
+        x.weekend_open_end = this.parseTime(x.weekend_open_end)
+        return x
+      })
       this.selectedFacility = this.facilities[0]
       this.columns = ['일자', '예약자', '좌석번호', '예약 시간', '비고']
     },
     async fetchTable(facilityId) {
-      // this.values = await $axios.get(`/facility/${facilityId}`)
+      // this.reservations = await $axios.get(`/facility/${facilityId}`)
       // Response: date, (User)name, seat_number, start_time, end_time, note
-      this.values = await new Promise((resolve) => resolve())
-      this.values = []
+      this.reservations = await new Promise((resolve) => resolve())
+      this.reservations = []
 
       if (facilityId === 1) {
         for (let i = 0; i < 7; i++) {
-          this.values.push({
+          this.reservations.push({
             date: '2021-09-01',
             name: '일병 서강민',
             seat_number: '14번',
@@ -76,7 +120,7 @@ export default {
         }
       } else if (facilityId === 2) {
         for (let i = 0; i < 20; i++) {
-          this.values.push({
+          this.reservations.push({
             date: '2021-09-01',
             name: '일병 서강민',
             seat_number: '14번',
@@ -86,7 +130,7 @@ export default {
           })
         }
       } else if (facilityId === 3) {
-        this.values = [
+        this.reservations = [
           {
             date: '2021-10-16',
             name: '일병 서강민',
@@ -145,7 +189,25 @@ export default {
           }
         ]
       } else if (facilityId === 4) {
-        this.values = []
+        this.reservations = []
+      }
+      if(!this.selectedFacility.use_timetable) {
+        this.reservations = this.reservations.map((x) => {
+          return {
+            date: x.date,
+            name: x.name,
+            seat_number: x.seat_number,
+            time: x.start_time + ' ~ ' + x.end_time,
+            note: x.note
+          }
+        })
+      }
+      else {
+        this.reservations = this.reservations.map((x) => {
+          x.start_time = this.parseTime(x.start_time)
+          x.end_time = this.parseTime(x.end_time)
+          return x
+        })
       }
     },
     onDropdownSelect(option, value) {
@@ -156,6 +218,13 @@ export default {
       // const result = await this.$axios.post(`/reservation/facility/${this.selectedFacility.id}`, {
       //   data: form
       // })
+    },
+    parseTime(time) {
+      const temp = time.split(':')
+      const date = new Date()
+      date.setHours(temp[0])
+      date.setMinutes(temp[1])
+      return date
     }
   }
 }
