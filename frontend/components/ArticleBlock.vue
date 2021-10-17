@@ -1,6 +1,6 @@
 <template>
-  <Nuxtlink
-    to="/board/id/article/article-id"
+  <NuxtLink
+    :to="{ path: '/article', params: { id: articleId, boardId: boardId } }"
     class="flex flex-row w-full items-center justify-between space-x-20"
   >
     <div
@@ -37,7 +37,7 @@
         @click="downVote()"
       />
     </div>
-  </Nuxtlink>
+  </NuxtLink>
 </template>
 
 <script>

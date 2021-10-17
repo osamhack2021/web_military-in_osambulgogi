@@ -12,7 +12,7 @@
   >
     <div class="py-4 w-full">
       <NuxtLink
-        to="/board"
+        :to="{ path: '/board', query: { id: $route.query.id, cursor: 1 } }"
         class="
           flex flex-row
           w-full
@@ -75,14 +75,34 @@
           />
         </div>
         <div class="flex flex-col mr-8">
-          <span class="text-sm text-gray-500 font-bold">{{ userName }}</span>
-          <span class="text-xs text-gray-400 font-semibold">09/20 22:37</span>
+          <span class="text-sm text-gray-500 font-bold">{{
+            isAnonymous ? '익명' : userName
+          }}</span>
+          <span class="text-xs text-gray-400 font-semibold"
+            >{{ reportDate.getFullYear() }}.{{
+              ('00' + reportDate.getMonth()).slice(-2)
+            }}.{{ ('00' + reportDate.getDate()).slice(-2) }}
+            {{ week[reportDate.getDay()] }}
+            {{ ('00' + reportDate.getHours()).slice(-2) }}:{{
+              ('00' + reportDate.getMinutes()).slice(-2)
+            }}</span
+          >
         </div>
         <template v-if="curUser === userId">
           <div class="flex flex-row divide-x divide-gray-400 items-center">
             <div class="flex-none items-center">
               <NuxtLink
-                to="/board/addarticle"
+                :to="{
+                  path: '/article/add',
+                  query: {
+                    id: $route.query.id,
+                    boardId: $route.query.boardId,
+                    title: title,
+                    content: content,
+                    isAnonymous: isAnonymous,
+                    isModifyingMode: true
+                  }
+                }"
                 class="
                   flex-none
                   p-1
@@ -94,7 +114,7 @@
                   hover:bg-gray-200
                 "
               >
-                수정
+                수정{{ $route.query.boardId }}
               </NuxtLink>
             </div>
             <div class="flex-none items-center">
@@ -175,12 +195,14 @@
 export default {
   data() {
     return {
+      week: ['(일)', '(월)', '(화)', '(수)', '(목)', '(금)', '(토)'],
       curUser: 3,
       boardId: -1,
       boardName: '',
       title: '',
       userId: -1,
       userName: '',
+      reportDate: new Date(),
       upVote: 0,
       downVote: 0,
       vote: 0,
@@ -214,7 +236,8 @@ export default {
         }
       ],
       isCommentMode: false,
-      isWriter: false
+      isWriter: false,
+      isAnonymous: true
     }
   },
   async fetch() {
@@ -228,7 +251,6 @@ export default {
     this.upVote = await new Promise((resolve) => resolve())
     this.downVote = await new Promise((resolve) => resolve())
 
-    this.boardId = 1
     this.boardName = '자유 게시판'
     this.title = '군대에서 근무서면서 달을 보는데 정말 환하더군요'
     this.userId = 3
@@ -243,6 +265,7 @@ export default {
     this.downVote = 40
     this.vote = this.upVote - this.downVote
     this.isWriter = true
+    this.reportDate = new Date(2021, 9, 20, 16, 33, 20)
   },
   methods: {
     increaseUpVote() {
