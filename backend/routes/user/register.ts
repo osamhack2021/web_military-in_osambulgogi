@@ -7,7 +7,7 @@ export const post = async (req: express.Request, res: express.Response) => {
   const username = req.body.username
 
   if (!username) {
-    return res.status(400).send('Username required')
+    return res.status(400).send('아이디가 필요합니다.')
   }
 
   try {
@@ -18,7 +18,7 @@ export const post = async (req: express.Request, res: express.Response) => {
     })
 
     if (existingUser) {
-      return res.status(400).send('Given username already exists')
+      return res.status(400).send('이미 존재하는 아이디입니다.')
     }
 
     const user = await prisma.user.create({
