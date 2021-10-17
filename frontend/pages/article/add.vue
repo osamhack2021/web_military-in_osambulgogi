@@ -8,7 +8,7 @@
         :value="boardIds"
         :selected="selectedIndex"
         :on-select="getSelected"
-      />
+      />{{ selectedIndex }}
     </div>
     <input
       v-model="title"
@@ -74,26 +74,8 @@
 </template>
 <script>
 export default {
-  props: {
-    datas: {
-      type: Object,
-      default: () => {
-        return {
-          selectedBoardId: -1,
-          selectedBoardName: '',
-          isModifyingMode: false,
-          articleId: -1,
-          title: '',
-          content: '',
-          isAnonymous: false
-        }
-      }
-    }
-  },
   data() {
     return {
-      selectedBoardId: -1,
-      selectedBoardName: '',
       selectedIndex: -1,
       boardIds: [],
       boardNames: [],
@@ -110,16 +92,20 @@ export default {
 
     this.boardIds = [1, 2, 50]
     this.boardNames = ['자유 게시판', '장병 게시판', '건의 게시판']
-    this.selectedBoardId = this.datas.selectedBoardId
-    this.selectedBoardName = this.datas.selectedBoardName
 
-    this.isModifyingMode = this.datas.isModifyingMode
-    this.title = this.datas.title
-    this.content = this.datas.content
-    this.isAnonymous = this.datas.isAnonymous
+    for (let i = 0; i < this.boardIds.length; i++) {
+      if (parseInt(this.$route.query.boardId) === this.boardIds[i]) {
+        this.selectedIndex = i
+        break
+      }
+    }
 
-    this.selectedBoardId = 2
-    this.selectedBoardName = '장병 게시판'
+    this.articleId = parseInt(this.$route.query.id) ? this.$route.query.id : -1
+    this.title = this.$route.query.title
+    this.content = this.$route.query.content
+    this.isAnonymous = this.$route.query.isAnonymous
+    this.isModifyingMode = this.$route.query.isModifyingMode
+
     this.title = '군대에서 근무서면서 달을 보는데 정말 환하더군요'
     this.content = `언제 어디서 보나 달은 똑같은 달이에요. 다른건 달을 보는 사람의 마음이겠죠.
 제가 여기서 조금 힘듦으로 다른 사람들이 조금 더 편한 마음을 가지고 달을 볼 수 있겠죠.
@@ -127,24 +113,13 @@ export default {
 이 간단한 걸 상꺾이 돼서야 깨닫네요. 간단한 걸 몰라서 그동안 혼자 그렇게 괴로워하고 이 시간들을 의심한 제가 미워지네요.
 
 모두 좋은 추석되세요!`
-    this.searchIndex(this.selectedBoardId, this.boardIds)
   },
   methods: {
     isAnonymousCheckbox() {
       this.isAnonymous = !this.isAnonymous
     },
-    searchIndex(value, list) {
-      for (let i = 0; i < list.length; i++) {
-        if (list[i] === value) {
-          this.selectedIndex = i
-          break
-        }
-      }
-    },
     getSelected(index) {
       this.selectedIndex = index
-      this.selectedBoardName = this.boardNames[index]
-      this.selectedBoardId = this.boardIds[index]
     },
     submit() {}
   }

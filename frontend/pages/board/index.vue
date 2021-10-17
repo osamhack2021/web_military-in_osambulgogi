@@ -1,16 +1,17 @@
 <template>
   <div class="flex-none w-240 h-full mx-auto my-8 items-center">
     <div class="flex flex-row p-4 items-start space-x-8">
-      <Nuxtlink
-        to="/board/:id"
-        class="text-2xl text-military underline font-bold"
-        >오늘의 글</Nuxtlink
-      >
-      <Nuxtlink to="/board/:id" class="text-2xl text-gray-400 font-bold"
-        >자유 게시판</Nuxtlink
-      >
-      <Nuxtlink to="/board:/id" class="text-2xl text-gray-400 font-bold"
-        >장병 게시판</Nuxtlink
+      <NuxtLink
+        v-for="board in boards"
+        :key="board.id"
+        :to="{ path: '/board', query: { id: board.id, cursor: 1 } }"
+        class="text-2xl font-bold"
+        :class="
+          $route.query.id == board.id
+            ? 'text-military underline'
+            : 'text-gray-400'
+        "
+        >{{ board.name }}</NuxtLink
       >
     </div>
     <ul
@@ -28,7 +29,7 @@
       <li v-for="(article, index) in articles" :key="index">
         <ArticleBlock
           class="flex-none"
-          :board-id="boards[currentBoard]['id']"
+          :board-id="parseInt($route.query.id)"
           :article-id="article['id']"
           :article-data="article"
         />
@@ -55,7 +56,6 @@ export default {
           name: '장병 게시판'
         }
       ],
-      currentBoard: 0,
       articles: [
         {
           id: 1,
