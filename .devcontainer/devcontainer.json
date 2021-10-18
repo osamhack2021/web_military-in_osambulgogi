@@ -36,7 +36,7 @@
     "forwardPorts": [3000, 4000, 5432],
 
     // Use 'postCreateCommand' to run commands after the container is created.
-    "postCreateCommand": "yarn --cwd frontend && yarn --cwd backend && yarn --cwd backend prisma migrate dev && yarn --cwd backend prisma db seed",
+    "postCreateCommand": "yarn --cwd WEB(FE) && yarn --cwd WEB(BE) && yarn --cwd WEB(BE) prisma migrate dev && yarn --cwd WEB(BE) prisma db seed",
 
     // Comment out connect as root instead. More info: https://aka.ms/vscode-remote/containers/non-root.
     "remoteUser": "node",
