@@ -3,7 +3,7 @@ module.exports = {
     {
       name: 'backend',
       script: 'yarn',
-      cwd: '/app/backend',
+      cwd: '/app/WEB(BE)',
       args: 'start',
       autorestart: true,
       watch: false,
@@ -20,7 +20,7 @@ module.exports = {
     {
       name: 'frontend',
       script: 'yarn',
-      cwd: '/app/frontend',
+      cwd: '/app/WEB(FE)',
       args: 'start',
       autorestart: true,
       watch: false,

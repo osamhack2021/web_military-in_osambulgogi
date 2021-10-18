@@ -12,7 +12,7 @@ until pg_isready --username=$POSTGRES_USER --host=military-in-db; do
     sleep 1;
 done;
 
-cd /app/backend
+cd /app/WEB(BE)
 yarn prisma migrate deploy
 yarn prisma db seed
 

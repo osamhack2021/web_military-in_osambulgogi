@@ -1,7 +1,7 @@
 {
     "editor.formatOnSave": true,
     "eslint.validate": ["vue", "javascript", "html"],
-    "eslint.workingDirectories": ["backend", "frontend"],
+    "eslint.workingDirectories": ["WEB(BE)", "WEB(FE)"],
     "editor.defaultFormatter": "esbenp.prettier-vscode",
     "[prisma]": {
         "editor.defaultFormatter": "Prisma.prisma"
