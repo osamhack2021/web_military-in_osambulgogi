@@ -39,14 +39,26 @@
               bg-green-400
               rounded-xl
               text-white text-lg text-center
+              font-bold
+              flex justify-center items-center
             "
             :style="`top: ${parseInt(
-              getHourDifference(parseTime(schedule.start_time), parseTime(start)) * 56
+              getHourDifference(
+                parseTime(schedule.start_time),
+                parseTime(start)
+              ) * 56
             )}px; height:${parseInt(
-              getHourDifference(parseTime(schedule.end_time), parseTime(schedule.start_time)) * 56
+              getHourDifference(
+                parseTime(schedule.end_time),
+                parseTime(schedule.start_time)
+              ) * 56
             )}px;`"
           >
-            {{ schedule.name ? schedule.name : schedule.note }}
+            <p class="text-center">
+              {{ schedule.name }}
+              <br v-if="schedule.name && schedule.note" />
+              {{ schedule.note }}
+            </p>
           </div>
         </div>
         <div v-for="(n, hourIdx) in durationHours" :key="hourIdx" class="h-14">

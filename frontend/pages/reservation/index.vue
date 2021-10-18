@@ -158,7 +158,7 @@ export default {
           },
           {
             date: '2021-10-24',
-            name: '',
+            name: '관리자',
             seat_number: '',
             start_time: '13:00',
             end_time: '23:00',
@@ -166,7 +166,7 @@ export default {
           },
           {
             date: '2021-10-25',
-            name: '',
+            name: '관리자',
             seat_number: '',
             start_time: '6:00',
             end_time: '16:00',
