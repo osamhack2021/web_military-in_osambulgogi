@@ -78,8 +78,8 @@ export default {
           use_timetable: true,
           open_start: '09:00',
           open_end: '20:30',
-          weekend_open_start: '09:00',
-          weekend_open_end: '20:30'
+          weekend_open_start: '06:00',
+          weekend_open_end: '22:30'
         },
         {
           name: '휴게실',
@@ -91,13 +91,6 @@ export default {
           weekend_open_end: '23:00'
         }
       ]
-      this.facilities.map((x) => {
-        x.open_start = this.parseTime(x.open_start)
-        x.open_end = this.parseTime(x.open_end)
-        x.weekend_open_start = this.parseTime(x.weekend_open_start)
-        x.weekend_open_end = this.parseTime(x.weekend_open_end)
-        return x
-      })
       this.selectedFacility = this.facilities[0]
       this.columns = ['일자', '예약자', '좌석번호', '예약 시간', '비고']
     },
@@ -132,7 +125,7 @@ export default {
       } else if (facilityId === 3) {
         this.reservations = [
           {
-            date: '2021-10-16',
+            date: '2021-10-20',
             name: '일병 서강민',
             seat_number: '',
             start_time: '15:00',
@@ -140,7 +133,7 @@ export default {
             note: ''
           },
           {
-            date: '2021-10-17',
+            date: '2021-10-21',
             name: '상병 김주현',
             seat_number: '',
             start_time: '17:00',
@@ -148,7 +141,7 @@ export default {
             note: ''
           },
           {
-            date: '2021-10-18',
+            date: '2021-10-22',
             name: '일병 최재민',
             seat_number: '',
             start_time: '17:00',
@@ -156,7 +149,7 @@ export default {
             note: ''
           },
           {
-            date: '2021-10-18',
+            date: '2021-10-22',
             name: '일병 서강민',
             seat_number: '',
             start_time: '20:00',
@@ -164,15 +157,15 @@ export default {
             note: ''
           },
           {
-            date: '2021-10-20',
+            date: '2021-10-24',
             name: '',
             seat_number: '',
             start_time: '13:00',
-            end_time: '24:00',
+            end_time: '23:00',
             note: '장비 교체작업'
           },
           {
-            date: '2021-10-21',
+            date: '2021-10-25',
             name: '',
             seat_number: '',
             start_time: '6:00',
@@ -180,7 +173,7 @@ export default {
             note: '장비 교체작업'
           },
           {
-            date: '2021-10-21',
+            date: '2021-10-25',
             name: '상병 김주현',
             seat_number: '',
             start_time: '18:00',
@@ -191,7 +184,9 @@ export default {
       } else if (facilityId === 4) {
         this.reservations = []
       }
-      if(!this.selectedFacility.use_timetable) {
+    },
+    parseReservationData(facility) {
+      if(!facility.use_timetable) {
         this.reservations = this.reservations.map((x) => {
           return {
             date: x.date,
@@ -202,17 +197,11 @@ export default {
           }
         })
       }
-      else {
-        this.reservations = this.reservations.map((x) => {
-          x.start_time = this.parseTime(x.start_time)
-          x.end_time = this.parseTime(x.end_time)
-          return x
-        })
-      }
     },
     onDropdownSelect(option, value) {
-      this.selectedFacility = value
       this.fetchTable(value.id)
+      this.parseReservationData(value)
+      this.selectedFacility = value
     },
     async onModalSubmit(form) {
       // const result = await this.$axios.post(`/reservation/facility/${this.selectedFacility.id}`, {
