@@ -19,7 +19,7 @@
       <RadioGroup
         :options="userTypeOptions"
         :values="userTypeValues"
-        :on-select="(option, value) => (form.userType = value)"
+        :on-select="(option, value) => (form.user_type = value)"
       />
     </div>
 
@@ -50,30 +50,25 @@
         :options="groupOptions"
         :values="groupValues"
         :filter="groupQuery"
-        :on-select="(option, value) => (form.group = value)"
+        :on-select="(option, value) => (form.group_id = value)"
       />
     </div>
 
     <div v-show="currentStep == 3">
       <p class="text-lg mb-6">회원 정보를 입력해주세요.</p>
       <div class="text-left">
-        <p class="mt-2 ml-2.5 mb-0">군번</p>
-        <input
-          v-model="form.id"
-          class="bg-gray-200 w-full px-3 py-1 my-1 rounded placeholder-gray-400"
-          placeholder="'-' 포함"
-        />
         <p class="mt-2 ml-2.5 mb-0">이름</p>
         <input
-          v-model="form.name"
+          v-model="form.username"
           class="bg-gray-200 w-full px-3 py-1 my-1 rounded placeholder-gray-400"
           placeholder=""
         />
-        <p class="mt-2 ml-2.5 mb-0">생년월일</p>
+        <p class="mt-2 ml-2.5 mb-0">비밀번호</p>
         <input
-          v-model="form.birth"
+          v-model="form.password"
+          type="password"
           class="bg-gray-200 w-full px-3 py-1 my-1 rounded placeholder-gray-400"
-          placeholder="8자리로 입력해 주세요"
+          placeholder=""
         />
         <p class="mt-2 ml-2.5 mb-0">연락처</p>
         <input
@@ -136,11 +131,10 @@ export default {
     return {
       currentStep: 1,
       form: {
-        userType: -1,
-        group: -1,
-        id: '',
-        name: '',
-        birth: '',
+        user_type: '',
+        group_id: '',
+        username: '',
+        password: '',
         phone: '',
         class: '',
         nickname: '',
@@ -149,7 +143,7 @@ export default {
 
       // 임시용
       userTypeOptions: ['간부', '장병', '민간인'],
-      userTypeValues: [0, 1, 2],
+      userTypeValues: ['ADMIN', 'NONE', 'NONE'],
       groupOptions: [
         '공군 정보체계관리단',
         '공군 작전정보통신단',
@@ -164,14 +158,13 @@ export default {
   computed: {
     isFormComplete() {
       if (this.currentStep === 1) {
-        return this.form.userType !== -1
+        return this.form.user_type !== -1
       } else if (this.currentStep === 2) {
-        return this.form.group !== -1
+        return this.form.group_id !== -1
       } else {
         return (
-          this.form.id &&
-          this.form.name &&
-          this.form.birth &&
+          this.form.username &&
+          this.form.password &&
           this.form.phone &&
           this.form.class &&
           this.form.nickname &&
@@ -182,10 +175,6 @@ export default {
   },
   methods: {
     async register() {
-      await new Promise((resolve) => resolve())
-      this.showModal = true
-
-      /*
       const res = await this.$axios({
         method: 'POST',
         url: '/user/register',
@@ -193,12 +182,11 @@ export default {
       })
 
       if (res.status === 200) {
-        alert('Register succeeded.')
+        this.$notify('Register succeeded.')
         this.showModal = true
       } else {
-        alert(res.data)
+        this.$notify(res.data)
       }
-      */
     }
   }
 }
