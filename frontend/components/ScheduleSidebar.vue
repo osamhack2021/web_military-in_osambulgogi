@@ -1,10 +1,12 @@
 <template>
-  <div v-if="isShow" class="filter drop-shadow-lg flex-row items-start">
+  <div class="flex h-full flex-row filter drop-shadow-lg items-start">
     <div
+      v-if="isShow"
       class="
         flex flex-col
         w-72
         h-160
+        z-40
         rounded-r-lg
         ring-2
         bg-white
@@ -32,10 +34,10 @@
             @click="selectOption(1)"
           >
             <fa :icon="['fas', 'clipboard-list']" class="mr-2" />
-            전체 일정 확인
+            일정 확인
           </button>
         </div>
-        <div>
+        <div v-if="!isGroup">
           <button
             class="text-xl font-bold"
             :class="selectedOption == 2 ? 'text-blue-400' : 'text-gray-600'"
@@ -66,7 +68,7 @@
             <div>
               <button
                 class="text-base font-bold text-gray-600"
-                @click="is = !is"
+                @click="selectAllToggle"
               >
                 <span
                   class="
@@ -84,7 +86,7 @@
                     :class="!is && 'text-transparent'"
                   />
                 </span>
-                전체 선택 <span v-if="is"> 해제</span>
+                전체 선택 <span v-if="isSelectAll"> 해제</span>
               </button>
             </div>
             <div>
@@ -107,9 +109,33 @@
       </div>
     </div>
     <div
-      class="flex w-20 h-64 rounded-r-lg ring-2 bg-white ring-gray-400 ml-60"
-    >
-      sdfsa sfsfsfsfsfssfsf
+      v-if="isShow"
+      class="absolute flex ml-72 w-1 h-40 z-50 bg-white"
+      :class="!isGroup ? 'mt-28' : 'mt-12'"
+    />
+    <div class="flex flex-col z-0" :class="!isShow && '-mt-80'">
+      <button
+        class="flex w-16 h-40 mt-12 rounded-r-lg ring-2 bg-white ring-gray-400"
+        :class="isGroup && 'z-40 shadow-lg'"
+        @click="selectGroupTab(true)"
+      >
+        <fa
+          :icon="['fas', 'exclamation']"
+          class="text-lg m-auto text-red-600"
+          :class="!isGroup && 'mt-6 ml-7'"
+        />
+      </button>
+      <button
+        class="flex w-16 h-40 -mt-24 rounded-r-lg ring-2 bg-white ring-gray-400"
+        :class="!isGroup && 'z-40 shadow-lg '"
+        @click="selectGroupTab(false)"
+      >
+        <fa
+          :icon="['fas', 'user-alt']"
+          class="text-lg m-auto text-gray-400"
+          :class="isGroup && 'mb-6 ml-6'"
+        />
+      </button>
     </div>
   </div>
 </template>
@@ -136,6 +162,10 @@ export default {
     erase: {
       type: Function,
       default: () => {}
+    },
+    selectGroupTab: {
+      type: Function,
+      default: (isGroup) => {}
     },
     selectModeToggle: {
       type: Function,

@@ -1,12 +1,29 @@
 <template>
-  <div class="flex items-center justify-between">
-    <transition name="slide"
-      ><ScheduleSidebar :is-show="showSideBar" :is-group="isGroup"
-    /></transition>
-    <div class="w-160 h-160"></div>
+  <div class="flex items-center">
+    <ScheduleSidebar
+      class="absolute h-full"
+      :is-show="showSideBar"
+      :is-group="isGroup"
+      :insert="insertSchedule"
+      :is-select-all="isSelectAll"
+      :select-all-toggle="selectAllToggle"
+      :select-group-tab="selectGroupTab"
+    />
+    <button
+      v-if="showSideBar"
+      class="absolute text-2xl text-gray-400 ml-1 p-1"
+      @click="showSideBar = false"
+    >
+      <fa :icon="['fas', 'caret-left']" />
+    </button>
+    <Calendar class="absolute m-auto justify-items-center" />
+    <CalendarBlock
+      :focused="'2021-10-19-0'"
+      :date="new Date(2021, 10, 17, 16, 33)"
+      :schedules="[{ title: 'holy', isHoliday: false }]"
+    />
     <ScheduleBlock />
-    <Button shadow @click="showSideBar = !showSideBar"></Button>
-    <Button shadow @click="showModal = true"></Button>
+    <button>dddd</button>
     <ScheduleModal v-if="showModal" @close="showModal = false" />
   </div>
 </template>
@@ -14,25 +31,23 @@
 export default {
   data() {
     return {
-      isGroup: false,
+      isGroup: true,
       showSideBar: false,
-      showModal: false
+      showModal: false,
+      isSelectAll: false
+    }
+  },
+  methods: {
+    insertSchedule() {
+      this.showModal = true
+    },
+    selectAllToggle() {
+      this.isSelectAll = !this.isSelectAll
+    },
+    selectGroupTab(isGroup) {
+      this.isGroup = isGroup
+      this.showSideBar = true
     }
   }
 }
 </script>
-<style>
-.slide-enter-active {
-  transition: all 0.3s ease;
-}
-.slide-leave-active {
-  transition: all 0.8s cubic-bezier(1, 0.5, 0.8, 1);
-}
-.slide-enter
-/* .slide-fade-leave-active below version 2.1.8 */ {
-  transform: translateX(-70px);
-}
-.slide-leave-to {
-  transform: translateX(10);
-}
-</style>
