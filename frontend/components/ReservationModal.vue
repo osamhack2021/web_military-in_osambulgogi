@@ -6,8 +6,9 @@
       v-model="reservation.date"
       class="bg-gray-200 w-full px-3 py-1 my-2 rounded placeholder-gray-400"
     />
-    <p>좌석 번호</p>
+    <p v-if="includeSeatNumber">좌석 번호</p>
     <input
+      v-if="includeSeatNumber"
       v-model="reservation.seat_number"
       class="bg-gray-200 w-full px-3 py-1 my-2 rounded placeholder-gray-400"
     />
@@ -40,6 +41,12 @@
 
 <script>
 export default {
+  props: {
+    includeSeatNumber: {
+      type: Boolean,
+      default: true
+    }
+  },
   data() {
     return {
       reservation: {
