@@ -21,17 +21,10 @@ module.exports = {
     extend: {
       colors: {
         military: '#4E784D',
-<<<<<<< HEAD
         'about-gradient-from': '#3CA55C',
         'about-gradient-to': '#B5AC49',
         'about-description': '#678E73',
         militaryDark: '#1E481D'
-=======
-        militaryDark: '#1E481D',
-        'about-gradient-from': '#3CA55C',
-        'about-gradient-to': '#B5AC49',
-        'about-description': '#678E73'
->>>>>>> Add tailwind colors for About page
       },
       width: {
         160: '40rem',
