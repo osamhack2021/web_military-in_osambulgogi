@@ -12,6 +12,7 @@
       </Button>
       <ReservationModal
         v-if="showModal"
+        :include-seat-number="!selectedFacility.use_timetable"
         @close="showModal = false"
         @submit="onModalSubmit"
       />
@@ -78,8 +79,8 @@ export default {
           use_timetable: true,
           open_start: '09:00',
           open_end: '20:30',
-          weekend_open_start: '06:00',
-          weekend_open_end: '22:30'
+          weekend_open_start: '09:00',
+          weekend_open_end: '21:00'
         },
         {
           name: '휴게실',
@@ -161,14 +162,14 @@ export default {
             name: '관리자',
             seat_number: '',
             start_time: '13:00',
-            end_time: '23:00',
+            end_time: '21:00',
             note: '장비 교체작업'
           },
           {
             date: '2021-10-25',
             name: '관리자',
             seat_number: '',
-            start_time: '6:00',
+            start_time: '9:00',
             end_time: '16:00',
             note: '장비 교체작업'
           },
@@ -177,12 +178,30 @@ export default {
             name: '상병 김주현',
             seat_number: '',
             start_time: '18:00',
-            end_time: '22:00',
+            end_time: '20:00',
             note: ''
           }
         ]
       } else if (facilityId === 4) {
-        this.reservations = []
+        this.reservations = [
+          {
+            date: '2021-10-23',
+            name: '상병 김현수',
+            seat_number: '',
+            start_time: '18:00',
+            end_time: '19:30',
+            note: '생활관 회식'
+          },
+          {
+            date: '2021-10-24',
+            name: '일병 서강민',
+            seat_number: '',
+            start_time: '14:00',
+            end_time: '17:00',
+            note: '동아리 할동 진행'
+
+          }
+        ]
       }
     },
     parseReservationData(facility) {
