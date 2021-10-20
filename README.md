@@ -8,13 +8,23 @@
 </p>
 <br />
 
+<p align="center">
+  <a href="https://docs.military-in.kr"><img src="https://img.shields.io/static/v1?label=docs&message=gitbook&color=blue&style=for-the-badge" alt="GitBook"></a>
+  <a href="https://night-fork-155.notion.site/in-c0c5c8585453431b8a082837fa0eca1f"><img src="https://img.shields.io/static/v1?label=docs&message=notion&color=979A9B&style=for-the-badge" alt="Notion"></a>
+</p>
+<br />
+
 ## 프로잭트 소개
 
-- 설명 기입
+군in은 군부대 장병들을 위한 부대 커뮤니티 서비스입니다. 일과 시간 이후 군 내 휴대폰 사용이 자유로운 요즘, 인트라넷 외부에서의 군 장병들 간 소통 수단을 제공하고자 시작한 프로젝트로, 대학교 커뮤니티 서비스인 '에브리타임'과 직장인 커뮤니티 서비스인 '블라인드'에서 영감을 받았습니다.
 
 ## 기능 설명
 
-- 설명 기입
+- 오픈 커뮤니티
+- 장병 커뮤니티
+- 부대 시설 예약
+- 당직표
+- 일정표
 
 ## 컴퓨터 구성 / 필수 조건 안내 (Prerequisites)
 
@@ -62,6 +72,7 @@
 - Slack
 - Notion
 - GitBook
+- Figma
 
 ## 설치 안내 (Installation Process)
 
@@ -77,7 +88,30 @@ docker-compose up -d
 
 ## 프로젝트 사용법 (Getting Started)
 
-~~**마크다운 문법을 이용하여 자유롭게 기재**~~
+### Backend
+
+Node package를 설치하고, PostgreSQL database에 migration과 seed를 적용합니다.
+
+```bash
+yarn install
+yarn prisma migrate dev
+yarn prisma db seed
+```
+
+이후 Dev server를 시작하면 `localhost:4000`에서 접속할 수 있습니다.
+
+```bash
+yarn dev
+```
+
+### Frontend
+
+Node package를 설치하고, Dev server를 시작하면 `localhost:3000`에서 접속할 수 있습니다.
+
+```bash
+yarn install
+yarn dev
+```
 
 ## 팀 정보 (Team Information)
 
