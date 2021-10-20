@@ -2,8 +2,8 @@
 **
 
 # Allow source files
-!/WEB(BE)
-!/WEB(FE)
+!/WEB\(BE\)
+!/WEB\(FE\)
 !/ecosystem.config.js
 !/entrypoint.sh
 !/nginx.conf
