@@ -6,11 +6,11 @@ import { Router } from 'express'
 
 const router = Router()
 
-router.get('/', authMiddleware, article.get)
-router.post('/', authMiddleware, article.post)
-router.patch('/', authMiddleware, article.patch)
-router.delete('/', authMiddleware, article.delete_)
-router.put('/vote', authMiddleware, vote.put)
+router.get('/', article.get)
+router.post('/', article.post)
+router.patch('/', article.patch)
+router.delete('/', article.delete_)
+router.put('/vote', vote.put)
 router.use('/comment', comment)
 
 export default router

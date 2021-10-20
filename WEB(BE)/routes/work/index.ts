@@ -5,13 +5,13 @@ import { Router } from 'express'
 
 const router = Router()
 
-router.get('/', authMiddleware, work.get)
-router.post('/', authMiddleware, work.post)
-router.patch('/', authMiddleware, work.patch)
-router.delete('/', authMiddleware, work.delete_)
-router.get('/worksheet', authMiddleware, worksheet.get)
-router.post('/worksheet', authMiddleware, worksheet.post)
-router.patch('/worksheet', authMiddleware, worksheet.patch)
-router.delete('/worksheet', authMiddleware, worksheet.delete_)
+router.get('/', work.get)
+router.post('/', work.post)
+router.patch('/', work.patch)
+router.delete('/', work.delete_)
+router.get('/worksheet', worksheet.get)
+router.post('/worksheet', worksheet.post)
+router.patch('/worksheet', worksheet.patch)
+router.delete('/worksheet', worksheet.delete_)
 
 export default router

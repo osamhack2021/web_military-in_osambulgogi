@@ -4,9 +4,9 @@ import { Router } from 'express'
 
 const router = Router()
 
-router.get('/', authMiddleware, duty.get)
-router.post('/', authMiddleware, duty.post)
-router.patch('/', authMiddleware, duty.patch)
-router.delete('/', authMiddleware, duty.delete_)
+router.get('/', duty.get)
+router.post('/', duty.post)
+router.patch('/', duty.patch)
+router.delete('/', duty.delete_)
 
 export default router

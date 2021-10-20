@@ -6,10 +6,10 @@ import { Router } from 'express'
 
 const router = Router()
 
-router.post('/', authMiddleware, schedule.post)
-router.patch('/', authMiddleware, schedule.patch)
-router.delete('/', authMiddleware, schedule.delete_)
-router.get('/user', authMiddleware, user.get)
-router.get('/group', authMiddleware, group.get)
+router.post('/', schedule.post)
+router.patch('/', schedule.patch)
+router.delete('/', schedule.delete_)
+router.get('/user', user.get)
+router.get('/group', group.get)
 
 export default router

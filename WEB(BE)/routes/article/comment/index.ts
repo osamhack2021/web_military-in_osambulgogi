@@ -4,8 +4,8 @@ import { Router } from 'express'
 
 const router = Router()
 
-router.post('/', authMiddleware, comment.post)
-router.patch('/', authMiddleware, comment.patch)
-router.delete('/', authMiddleware, comment.delete_)
+router.post('/', comment.post)
+router.patch('/', comment.patch)
+router.delete('/', comment.delete_)
 
 export default router

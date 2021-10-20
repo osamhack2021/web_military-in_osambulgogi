@@ -7,7 +7,7 @@ import { PrismaClient } from '@prisma/client'
 const router = Router()
 const prisma = new PrismaClient()
 
-router.get('/', authMiddleware, async (req: RequestWithUser, res: Response) => {
+router.get('/', async (req: RequestWithUser, res: Response) => {
   const board = Number(req.query.id)
   const cursor = Number(req.query.cursor)
 

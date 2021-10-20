@@ -8,9 +8,9 @@ import { Router } from 'express'
 const router = Router()
 
 router.post('/login', login.post)
-router.get('/logout', authMiddleware, logout.get)
-router.get('/profile', authMiddleware, profile.get)
-router.put('/profile', authMiddleware, profile.put)
+router.get('/logout', logout.get)
+router.get('/profile', profile.get)
+router.put('/profile', profile.put)
 router.post('/register', register.post)
 
 export default router
