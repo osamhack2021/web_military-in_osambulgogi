@@ -6,12 +6,12 @@ import { Router } from 'express'
 
 const router = Router()
 
-router.post('/', authMiddleware, reservation.post)
-router.delete('/', authMiddleware, reservation.delete_)
-router.get('/user', authMiddleware, user.get)
-router.get('/facility', authMiddleware, facility.get)
-router.post('/facility', authMiddleware, facility.post)
-router.patch('/facility', authMiddleware, facility.patch)
-router.delete('/facility', authMiddleware, facility.delete_)
+router.post('/', reservation.post)
+router.delete('/', reservation.delete_)
+router.get('/user', user.get)
+router.get('/facility', facility.get)
+router.post('/facility', facility.post)
+router.patch('/facility', facility.patch)
+router.delete('/facility', facility.delete_)
 
 export default router
