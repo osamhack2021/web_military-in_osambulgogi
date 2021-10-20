@@ -24,19 +24,23 @@
       </div>
     </div>
     <div class="mr-20">
-      <button class="text-gray-800">회원가입</button>
-      <button
-        class="
-          ml-8
-          px-6
-          py-1
-          text-gray-800 text-sm
-          border-2 border-gray-600
-          rounded-lg
-        "
-      >
-        로그인
-      </button>
+      <NuxtLink to="/register">
+        <button class="text-gray-800">회원가입</button>
+      </NuxtLink>
+      <NuxtLink to="/login">
+        <button
+          class="
+            ml-8
+            px-6
+            py-1
+            text-gray-800 text-sm
+            border-2 border-gray-600
+            rounded-lg
+          "
+        >
+          로그인
+        </button>
+      </NuxtLink>
     </div>
   </div>
 </template>
